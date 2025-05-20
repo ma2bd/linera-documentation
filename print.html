@@ -1,0 +1,3431 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="The Linera Manual">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-d0866e17.css">
+        <link rel="stylesheet" href="css/general-e9745eeb.css">
+        <link rel="stylesheet" href="css/chrome-d7ced664.css">
+        <link rel="stylesheet" href="css/print-ad67d350.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome-799aeb25.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight-56612340.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/theme-864c5258.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-68d988ca.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const html = document.documentElement;
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/linera-io/linera-documentation" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p><img src="images/linera_banner_db73e9b.svg" alt="The Linera banner" /></p>
+<h1 id="the-linera-manual"><a class="header" href="#the-linera-manual">The Linera Manual</a></h1>
+<p>Welcome to the reference manual of Linera, the decentralized protocol for
+<strong>real-time Web3 applications</strong>.</p>
+<p>This documentation is split into three main parts:</p>
+<ol>
+<li>
+<p>The first section gives a <a href="protocol/overview.html">high-level overview</a> of the
+protocol.</p>
+</li>
+<li>
+<p>The second section is intended for
+<a href="developers/getting_started.html">developers</a> building applications using the
+Linera Rust SDK.</p>
+</li>
+<li>
+<p>The third section is intended for <a href="operators/devnets.html">operators</a> who wish
+to run Linera validators.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>NEW: Publish and test your Web3 application on the Linera Testnet!</strong></p>
+<p>Install
+<a href="developers/getting_started/installation.html#installing-from-cratesio">the Linera CLI tool</a>
+then follow the instructions on
+<a href="developers/getting_started/hello_linera.html#using-the-testnet">this page</a> to
+claim a microchain and publish your first application on the current Testnet.</p>
+</blockquote>
+<p>To join our community and get involved in the development of the Linera
+ecosystem, check out our
+<a href="https://github.com/linera-io/linera-protocol">GitHub repository</a>, our
+<a href="https://linera.io">Website</a>, and find us on social media channels such as
+<a href="https://www.youtube.com/@linera_io">YouTube</a>, <a href="https://x.com/linera_io">X</a>,
+<a href="https://t.me/linera_official">Telegram</a>, and
+<a href="https://discord.gg/linera">Discord</a>.</p>
+<p><em>Let's get started!</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<p>Linera is a decentralized protocol optimized for Web3 applications that require
+guaranteed performance for an unlimited number of active users.</p>
+<p>The core idea of the <a href="https://linera.io/whitepaper">Linera protocol</a> is to run
+many parallel chains, called <strong>microchains</strong>, in a single set of validators,
+allowing chains to easily share applications, data, and liquidity.</p>
+<h2 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h2>
+<p>In Linera, each user wallet is given a dedicated chain, in which they can
+propose blocks any time. Such chains with a single user are called <strong>user
+chains</strong>. They are meant to be used as a personal blockspace to hold assets,
+receive assets, and initiate interactions with Linera applications.</p>
+<p>Linera users propose blocks directly to their chains. Importantly, Linera
+validators ensure that all blocks are validated and finalized in the same way
+across all the chains.</p>
+<blockquote>
+<p>Besides user chains, the Linera protocol supports two other types of
+microchains, called <strong>multi-user</strong> and <strong>public</strong> chains. Public chains are
+operated by validators, and generally used by a specific application.
+Multi-user chains are shared between several users and are generally used for
+temporary interactions, such as atomic swaps, auctions, or on-chain games.</p>
+</blockquote>
+<h2 id="main-features"><a class="header" href="#main-features">Main features</a></h2>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li>
+<p>Finality time under 0.5 seconds for most blocks, including a certificate of
+execution.</p>
+</li>
+<li>
+<p>New microchains created in one transaction from an existing chain.</p>
+</li>
+<li>
+<p>No theoretical limit in the number of microchains, hence the number of
+transactions per second (TPS).</p>
+</li>
+<li>
+<p>Bridge-friendly block headers compatible with EVM signatures</p>
+</li>
+</ul>
+<p><strong>On-chain applications</strong></p>
+<ul>
+<li>
+<p>Rich programming model allowing applications to distribute computation across
+chains using asynchronous messages, shared immutable data, and event
+streams(*).</p>
+</li>
+<li>
+<p>Full synchronous composability inside each microchain.</p>
+</li>
+<li>
+<p>Support for heavy (multi-second) transactions and direct oracle queries to
+external web services and data storage layers.</p>
+</li>
+</ul>
+<p><strong>Web client and wallet infrastructure</strong></p>
+<ul>
+<li>
+<p>Real-time push-notifications from validators to web clients.</p>
+</li>
+<li>
+<p>Block synchronization and VM execution for selected microchains, allowing
+instant pre-confirmation of user transactions.</p>
+</li>
+<li>
+<p>Trustless reactive programming using familiar Web2 frameworks.</p>
+</li>
+<li>
+<p>On-chain applications programmed in Rust to run on Wasm, or Solidity on
+EVM(*).</p>
+</li>
+</ul>
+<p><em>Features marked with (*) are planned for Q2'25.</em></p>
+<h2 id="how-does-linera-compare-to-traditional-multi-chain-protocols"><a class="header" href="#how-does-linera-compare-to-traditional-multi-chain-protocols">How does Linera compare to traditional multi-chain protocols?</a></h2>
+<p>Linera is the first blockchain designed to run a virtually unlimited number of
+chains in parallel, including one dedicated <strong>user chain</strong> per user wallet.</p>
+<p>In traditional multi-chain protocols, each chain usually runs a full blockchain
+protocol in a separate set of validators. Creating a new chain or exchanging
+messages between chains is expensive. As a result, the total number of chains is
+generally limited.</p>
+<p>In contrast, <strong>Linera is designed to run as many microchains as needed</strong>:</p>
+<ul>
+<li>
+<p>Users only create blocks in their chain when needed;</p>
+</li>
+<li>
+<p>Creating a microchain does not require onboarding validators;</p>
+</li>
+<li>
+<p>All chains have the same level of security;</p>
+</li>
+<li>
+<p>Microchains communicate efficiently using the internal networks of validators;</p>
+</li>
+<li>
+<p>Validators are internally sharded (like a regular web service) and may adjust
+their capacity elastically by adding or removing internal workers.</p>
+</li>
+<li>
+<p>Users may run heavy transactions in their microchain without affecting other
+users.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="why-build-on-top-of-linera"><a class="header" href="#why-build-on-top-of-linera">Why build on top of Linera?</a></h1>
+<h2 id="real-time-interactions-at-scale"><a class="header" href="#real-time-interactions-at-scale">Real-time interactions at scale</a></h2>
+<p>At Linera, we believe that Web3 applications should be able to serve as many
+<strong>active users</strong> as needed without degrading user experience and security.</p>
+<p>Examples of applications that require processing time-sensitive transactions
+created by many simultaneous users (or devices) include:</p>
+<ul>
+<li>
+<p>Real-time payments and micro-rewards,</p>
+</li>
+<li>
+<p>Real-time auction systems,</p>
+</li>
+<li>
+<p>On-chain games,</p>
+</li>
+<li>
+<p>Decentralized physical infrastructure (DePIN),</p>
+</li>
+<li>
+<p>Social data feeds,</p>
+</li>
+<li>
+<p>Version control systems for software, data pipelines, or AI training
+pipelines.</p>
+</li>
+</ul>
+<h2 id="real-time-connectivity-and-easy-off-chain-integrations"><a class="header" href="#real-time-connectivity-and-easy-off-chain-integrations">Real-time connectivity and easy off-chain integrations</a></h2>
+<p>Linera's unique concept of <strong>user chains</strong> facilitate communications with
+external systems in several ways:</p>
+<ul>
+<li>
+<p>Linera blocks instantly generate proofs of execution suitable for low-latency
+bridges.</p>
+</li>
+<li>
+<p>Transactions can query external Web services, including AI inference systems
+or RPC providers from other blockchains.</p>
+</li>
+<li>
+<p>Transactions can last several seconds, making it easy for applications to
+download data from external storage or apply expensive validation functions
+(e.g. ZK verification) on-chain.</p>
+</li>
+</ul>
+<h2 id="learn-more"><a class="header" href="#learn-more">Learn more</a></h2>
+<p>Visit the <a href="https://linera.io">Linera website</a> for the latest updates on Linera
+partnerships and use cases.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="roadmap"><a class="header" href="#roadmap">Roadmap</a></h1>
+<p>This section outlines our current technical roadmap. Please note that this
+roadmap is provided for informational purposes only and is subject to change at
+any time.</p>
+<pre class="mermaid">%%{init: { 'logLevel': 'debug', 'theme': 'dark' } }%%
+timeline
+    section 2024
+      Testnet 1 (Archimedes): Multi-user chains
+                            : Data blobs
+                            : Fees
+    section 2025+
+      Testnet 2 (Babbage): Web client
+               : POW public chains
+               : Block headers
+      Testnet 3: Browser extension &amp; wallet connect
+               : EVM support
+               : Block explorer
+      Testnet 4: Governance
+               : Tokenomics
+               : Security audits
+      Mainnet
+</pre>
+<h2 id="testnet-1-released-nov-2024"><a class="header" href="#testnet-1-released-nov-2024">Testnet #1 (released Nov 2024)</a></h2>
+<p>Codename: Archimedes</p>
+<p><strong>SDK</strong></p>
+<ul>
+<li>
+<p>Released Rust SDK v0.13+</p>
+</li>
+<li>
+<p>First Web demos running a Linera client in the browser</p>
+</li>
+<li>
+<p>Blob storage for user data</p>
+</li>
+</ul>
+<p><strong>Core protocol</strong></p>
+<ul>
+<li>
+<p>Blob storage for application bytecode and user data</p>
+</li>
+<li>
+<p>Multi-user chains (e.g. used in on-chain game demo)</p>
+</li>
+<li>
+<p>Initial support for fees</p>
+</li>
+</ul>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li>
+<p>Fixed number of workers per validator</p>
+</li>
+<li>
+<p>Onboarding of 20+ external validators</p>
+</li>
+</ul>
+<h2 id="testnet-2-planned-apr-2025"><a class="header" href="#testnet-2-planned-apr-2025">Testnet #2 (planned Apr 2025)</a></h2>
+<p>Codename: Babbage</p>
+<p><strong>SDK</strong></p>
+<ul>
+<li>
+<p>Official Web client framework</p>
+</li>
+<li>
+<p>Support for native oracles: http queries and non-deterministic computations</p>
+</li>
+<li>
+<p>Support for POW public chains</p>
+</li>
+<li>
+<p>Simplified user and application addresses</p>
+</li>
+</ul>
+<p><strong>Core protocol</strong></p>
+<ul>
+<li>
+<p>More scalable reconfigurations</p>
+</li>
+<li>
+<p>No more "request-application" operations</p>
+</li>
+<li>
+<p>Bridge-friendly block headers compatible with EVM signatures</p>
+</li>
+</ul>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li>
+<p>Better hotfix release process</p>
+</li>
+<li>
+<p>Support for resizing workers offline</p>
+</li>
+</ul>
+<h2 id="testnet-3"><a class="header" href="#testnet-3">Testnet #3</a></h2>
+<p><strong>SDK</strong></p>
+<ul>
+<li>
+<p>Browser extension and wallet connect</p>
+</li>
+<li>
+<p>Event streams (deprecating pub/sub channels)</p>
+</li>
+<li>
+<p>Experimental support for EVM</p>
+</li>
+<li>
+<p>Compatibility with EVM addresses</p>
+</li>
+</ul>
+<p><strong>Core protocol</strong></p>
+<ul>
+<li>
+<p>More scalable client with partial chain execution and optimized block
+synchronization</p>
+</li>
+<li>
+<p>Execution cache for faster server-side and client-side block execution</p>
+</li>
+<li>
+<p>Protocol upgradability, including block format, virtual machines, and system
+APIs</p>
+</li>
+<li>
+<p>Simplify chain creation and support externally created microchains</p>
+</li>
+</ul>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li>
+<p>High-TPS configuration</p>
+</li>
+<li>
+<p>Block indexing and Walrus archives</p>
+</li>
+</ul>
+<h2 id="testnet-4"><a class="header" href="#testnet-4">Testnet #4</a></h2>
+<p><strong>SDK</strong></p>
+<ul>
+<li>
+<p>Stable support for EVM</p>
+</li>
+<li>
+<p>Transaction scripts</p>
+</li>
+<li>
+<p>Application upgradability</p>
+</li>
+</ul>
+<p><strong>Core protocol</strong></p>
+<ul>
+<li>
+<p>Governance chain</p>
+</li>
+<li>
+<p>Final tokenomics and fees</p>
+</li>
+<li>
+<p>Storage durability</p>
+</li>
+</ul>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li>
+<p>Network performance measurements and validator incentives</p>
+</li>
+<li>
+<p>Security audits</p>
+</li>
+</ul>
+<h2 id="mainnet-and-beyond"><a class="header" href="#mainnet-and-beyond">Mainnet and beyond</a></h2>
+<p><strong>SDK</strong></p>
+<ul>
+<li>
+<p>Account abstraction and fee masters</p>
+</li>
+<li>
+<p>Linera light clients for other contract languages (e.g. Solidity, Sui Move)</p>
+</li>
+</ul>
+<p><strong>Core Protocol</strong></p>
+<ul>
+<li>
+<p>Permissionless auditing protocol</p>
+</li>
+<li>
+<p>Performance improvements</p>
+</li>
+</ul>
+<p><strong>Infrastructure</strong></p>
+<ul>
+<li>
+<p>Support for dynamic shard assignment and elasticity</p>
+</li>
+<li>
+<p>Geographic sharding</p>
+</li>
+<li>
+<p>Support for more cloud vendors</p>
+</li>
+<li>
+<p>Native bridges</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
+<p>In this section, we will cover the necessary steps to install the Linera
+toolchain and give a short example to get started with the Linera SDK.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<p>Let's start with the installation of the Linera development tools.</p>
+<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
+<p>The Linera toolchain consists of several crates:</p>
+<ul>
+<li>
+<p><code>linera-sdk</code> is the main library used to program Linera applications in Rust.</p>
+</li>
+<li>
+<p><code>linera-service</code> defines a number of binaries, notably <code>linera</code> the main
+client tool used to operate developer wallets and start local testing
+networks.</p>
+</li>
+<li>
+<p><code>linera-storage-service</code> provides a simple database used to run local
+validator nodes for testing and development purposes.</p>
+</li>
+</ul>
+<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<p>The operating systems currently supported by the Linera toolchain can be
+summarized as follows:</p>
+<div class="table-wrapper"><table><thead><tr><th>Linux x86 64-bit</th><th>Mac OS (M1 / M2)</th><th>Mac OS (x86)</th><th>Windows</th></tr></thead><tbody>
+<tr><td>✓ Main platform</td><td>✓ Working</td><td>✓ Working</td><td>Untested</td></tr>
+</tbody></table>
+</div>
+<p>The main prerequisites to install the Linera toolchain are Rust, Wasm, and
+Protoc. They can be installed as follows on Linux:</p>
+<ul>
+<li>
+<p>Rust and Wasm</p>
+<ul>
+<li><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li>
+<li><code>rustup target add wasm32-unknown-unknown</code></li>
+</ul>
+</li>
+<li>
+<p>Protoc</p>
+<ul>
+<li><code>curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v21.11/protoc-21.11-linux-x86_64.zip</code></li>
+<li><code>unzip protoc-21.11-linux-x86_64.zip -d $HOME/.local</code></li>
+<li>If <code>~/.local</code> is not in your path, add it:
+<code>export PATH="$HOME/.local/bin:$PATH"</code></li>
+</ul>
+</li>
+<li>
+<p>On certain Linux distributions, you may have to install development packages
+such as <code>g++</code>, <code>libclang-dev</code> and <code>libssl-dev</code>.</p>
+</li>
+</ul>
+<p>For MacOS support and for additional requirements needed to test the Linera
+protocol itself, see the installation section on
+<a href="https://github.com/linera-io/linera-protocol/blob/main/INSTALL.md">GitHub</a>.</p>
+<p>This manual was tested with the following Rust toolchain:</p>
+<pre><code class="language-text">[toolchain]
+channel = "1.85.0"
+components = [ "clippy", "rustfmt", "rust-src" ]
+targets = [ "wasm32-unknown-unknown" ]
+profile = "minimal"
+</code></pre>
+<h2 id="installing-from-cratesio"><a class="header" href="#installing-from-cratesio">Installing from crates.io</a></h2>
+<p>You may install the Linera binaries with</p>
+<pre><code class="language-bash">cargo install --locked linera-storage-service@0.14.1
+cargo install --locked linera-service@0.14.1
+</code></pre>
+<p>and use <code>linera-sdk</code> as a library for Linera Wasm applications:</p>
+<pre><code class="language-bash">cargo add linera-sdk@0.14.1
+</code></pre>
+<p>The version number <code>0.14.1</code> corresponds to the
+current Testnet of Linera. The minor version may change frequently but should
+not induce breaking changes.</p>
+<h2 id="installing-from-github"><a class="header" href="#installing-from-github">Installing from GitHub</a></h2>
+<p>Download the source from <a href="https://github.com/linera-io/linera-protocol">GitHub</a>:</p>
+<pre><code class="language-bash">git clone https://github.com/linera-io/linera-protocol.git
+cd linera-protocol
+git checkout -t origin/testnet_babbage  # Current release branch
+</code></pre>
+<p>To install the Linera toolchain locally from source, you may run:</p>
+<pre><code class="language-bash">cargo install --locked --path linera-storage-service
+cargo install --locked --path linera-service
+</code></pre>
+<p>Alternatively, for developing and debugging, you may instead use the binaries
+compiled in debug mode, e.g. using <code>export PATH="$PWD/target/debug:$PATH"</code>.</p>
+<p>This manual was tested against the following commit of the
+<a href="https://github.com/linera-io/linera-protocol">repository</a>:</p>
+<pre><code class="language-text">300ba6d6a015d93a837296004e5958f843452248
+</code></pre>
+<h2 id="getting-help"><a class="header" href="#getting-help">Getting help</a></h2>
+<p>If installation fails, reach out to the team (e.g. on
+<a href="https://discord.gg/linera">Discord</a>) to help troubleshoot your issue or
+<a href="https://github.com/linera-io/linera-protocol/issues/new">create an issue</a> on
+GitHub.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hello-linera"><a class="header" href="#hello-linera">Hello, Linera</a></h1>
+<p>In this section, you will learn how to initialize a developer wallet, interact
+with the current Testnet, run a local development network, then compile and
+deploy your first application from scratch.</p>
+<p>By the end of this section, you will have a
+<a href="developers/getting_started/../core_concepts/microchains.html">microchain</a> on the Testnet and/or on your
+local network, and a working application that can be queried using GraphQL.</p>
+<h2 id="creating-a-wallet-on-the-latest-testnet"><a class="header" href="#creating-a-wallet-on-the-latest-testnet">Creating a wallet on the latest Testnet</a></h2>
+<p>To interact with the latest Testnet, you will need a developer wallet, a new
+microchain, and some tokens. These can be all obtained at once by querying the
+Testnet's <strong>faucet</strong> service as follows:</p>
+<pre><code class="language-bash">linera wallet init --with-new-chain --faucet https://faucet.testnet-babbage.linera.net
+</code></pre>
+<p>If you obtain an error message instead, make sure to use a Linera toolchain
+<a href="developers/getting_started/installation.html#installing-from-cratesio">compatible with the current Testnet</a>.</p>
+<div id="admonition-info" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-title">
+<div class="admonition-title">
+<div id="admonition-info-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="developers/getting_started/hello_linera.html#admonition-info"></a>
+</div>
+<div>
+<p>A Linera Testnet is a deployment of the Linera protocol used for testing. A deployment
+consists of a number of <a href="developers/getting_started/../advanced_topics/validators.html">validators</a>, each of which runs
+a frontend service (aka. <code>linera-proxy</code>), a number of workers (aka. <code>linera-server</code>), and
+a shared database (by default <code>linera-storage-service</code>).</p>
+</div>
+</div>
+<h2 id="using-a-local-test-network"><a class="header" href="#using-a-local-test-network">Using a local test network</a></h2>
+<p>Another option is to start your own local development network. To do so, run the
+following command:</p>
+<pre><code class="language-bash">linera net up --with-faucet --faucet-port 8080
+</code></pre>
+<p>This will start a validator with the default number of shards and start a
+faucet.</p>
+<p>Now, we're ready to create a developer wallet by running the following command
+in a separate shell:</p>
+<pre><code class="language-bash">linera wallet init --with-new-chain --faucet http://localhost:8080
+</code></pre>
+<div id="admonition-note" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-title">
+<div class="admonition-title">
+<div id="admonition-note-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="developers/getting_started/hello_linera.html#admonition-note"></a>
+</div>
+<div>
+<p>A wallet is valid for the lifetime of its network. Every time a local
+network is restarted, the wallet needs to be removed and created again.</p>
+</div>
+</div>
+<h2 id="working-with-several-developer-wallets-and-several-networks"><a class="header" href="#working-with-several-developer-wallets-and-several-networks">Working with several developer wallets and several networks</a></h2>
+<p>By default, the <code>linera</code> command looks for wallet files located in a
+configuration path determined by your operating system. If you prefer to choose
+the location of your wallet files, you may optionally set the variables
+<code>LINERA_WALLET</code> and <code>LINERA_STORAGE</code> as follows:</p>
+<pre><code class="language-bash">DIR=$HOME/my_directory
+mkdir -p $DIR
+export LINERA_WALLET=$DIR/wallet.json"
+export LINERA_STORAGE="rocksdb:$DIR/linera.db"
+</code></pre>
+<p>Choosing such a directory can be useful to work with several networks because a
+wallet is always specific to the network where it was created.</p>
+<div id="admonition-note-1" class="admonition admonish-note" role="note" aria-labelledby="admonition-note-1-title">
+<div class="admonition-title">
+<div id="admonition-note-1-title">
+<p>Note</p>
+</div>
+<a class="admonition-anchor-link" href="developers/getting_started/hello_linera.html#admonition-note-1"></a>
+</div>
+<div>
+<p>We refer to the wallets created by the <code>linera</code> CLI as "developer wallets" because
+they are operated from a developer tool and merely meant for testing and development.</p>
+<p>Production-grade user wallets are generally operated by a browser
+extension, a mobile application, or a hardware device.</p>
+</div>
+</div>
+<h2 id="interacting-with-the-linera-network"><a class="header" href="#interacting-with-the-linera-network">Interacting with the Linera network</a></h2>
+<p>To check that the network is working, you can synchronize your chain with the
+rest of the network and display the chain balance as follows:</p>
+<pre><code class="language-bash">linera sync
+linera query-balance
+</code></pre>
+<p>You should see an output number, e.g. <code>10</code>.</p>
+<h2 id="building-an-example-application"><a class="header" href="#building-an-example-application">Building an example application</a></h2>
+<p>Applications running on Linera are <a href="https://webassembly.org/">Wasm</a> bytecode.
+Each validator and client has a built-in Wasm virtual machine (VM) which can
+execute bytecode.</p>
+<p>Let's build the <code>counter</code> application from the <code>examples/</code> subdirectory of the
+<a href="https://github.com/linera-io/linera-protocol/tree/testnet_babbage">Linera testnet
+branch</a>:</p>
+<pre><code class="language-bash">cd examples/counter &amp;&amp; cargo build --release --target wasm32-unknown-unknown
+</code></pre>
+<h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your application</a></h2>
+<p>You can publish the bytecode and create an application using it on your local
+network using the <code>linera</code> client's <code>publish-and-create</code> command and provide:</p>
+<ol>
+<li>The location of the contract bytecode</li>
+<li>The location of the service bytecode</li>
+<li>The JSON encoded initialization arguments</li>
+</ol>
+<pre><code class="language-bash">linera publish-and-create \
+  ../target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
+  --json-argument "42"
+</code></pre>
+<p>Congratulations! You've published your first application on Linera!</p>
+<h2 id="querying-your-application"><a class="header" href="#querying-your-application">Querying your application</a></h2>
+<p>Now let's query your application to get the current counter value. To do that,
+we need to use the client running in
+<a href="developers/getting_started/../core_concepts/node_service.html"><em>service</em> mode</a>. This will expose a bunch of
+APIs locally which we can use to interact with applications on the network.</p>
+<pre><code class="language-bash">linera service --port 8080
+</code></pre>
+<!-- TODO: add graphiql image here -->
+<p>Navigate to <code>http://localhost:8080</code> in your browser to access GraphiQL, the
+<a href="https://graphql.org">GraphQL</a> IDE. We'll look at this in more detail in a
+<a href="developers/getting_started/../core_concepts/node_service.html#graphiql-ide">later section</a>; for now, list
+the applications deployed on your default chain by running:</p>
+<pre><code class="language-gql">query {
+  applications(chainId: "...") {
+    id
+    description
+    link
+  }
+}
+</code></pre>
+<p>where <code>...</code> are replaced by the chain ID shown by <code>linera wallet show</code>.</p>
+<p>Since we've only deployed one application, the results returned have a single
+entry.</p>
+<p>At the bottom of the returned JSON there is a field <code>link</code>. To interact with
+your application copy and paste the link into a new browser tab.</p>
+<p>Finally, to query the counter value, run:</p>
+<pre><code class="language-gql">query {
+  value
+}
+</code></pre>
+<p>This will return a value of <code>42</code>, which is the initialization argument we
+specified when deploying our application.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="core-concepts"><a class="header" href="#core-concepts">Core concepts</a></h1>
+<p>We now describe some of the core concepts of the Linera protocol in greater
+details.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="microchains"><a class="header" href="#microchains">Microchains</a></h1>
+<p>This section provides an introduction to microchains, the main building block of
+the Linera Protocol. For a more formal treatment refer to the
+<a href="https://linera.io/whitepaper">whitepaper</a>.</p>
+<h2 id="background"><a class="header" href="#background">Background</a></h2>
+<p>A <strong>microchain</strong> is a chain of blocks describing successive changes to a shared
+state. We will use the terms <em>chain</em> and <em>microchain</em> interchangeably. Linera
+microchains are similar to the familiar notion of blockchain, with the following
+important specificities:</p>
+<ul>
+<li>
+<p>An arbitrary number of microchains can coexist in a Linera network, all
+sharing the same set of validators and the same level of security. Creating a
+new microchain only takes one transaction on an existing chain.</p>
+</li>
+<li>
+<p>The task of proposing new blocks in a microchain can be assumed either by
+validators or by end users (or rather their wallets) depending on the
+configuration of a chain. Specifically, microchains can be <em>single-owner</em>,
+<em>multi-owner</em>, or <em>public</em>, depending on who is authorized to propose blocks.</p>
+</li>
+</ul>
+<h2 id="cross-chain-messaging"><a class="header" href="#cross-chain-messaging">Cross-chain messaging</a></h2>
+<p>In traditional networks with a single blockchain, every transaction can access
+the application's entire execution state. This is not the case in Linera where
+the state of an application is spread across multiple microchains, and the state
+on any individual microchain is only affected by the blocks of that microchain.</p>
+<p>Cross-chain messaging is a way for different microchains to communicate with
+each other asynchronously. This method allows applications and data to be
+distributed across multiple chains for better scalability. When an application
+on one chain sends a message to itself on another chain, a cross-chain request
+is created. These requests are implemented using remote procedure calls (RPCs)
+within the validators' internal network, ensuring that each request is executed
+only once.</p>
+<p>Instead of immediately modifying the target chain, messages are placed first in
+the target chain's <strong>inbox</strong>. When an owner of the target chain creates its next
+block in the future, they may reference a selection of messages taken from the
+current inbox in the new block. This executes the selected messages and applies
+their messages to the chain state.</p>
+<p>Below is an example set of chains sending asynchronous messages to each other
+over consecutive blocks.</p>
+<pre><code class="language-ignore">                               ┌───┐     ┌───┐     ┌───┐
+                       Chain A │   ├────►│   ├────►│   │
+                               └───┘     └───┘     └───┘
+                                                     ▲
+                                           ┌─────────┘
+                                           │
+                               ┌───┐     ┌─┴─┐     ┌───┐
+                       Chain B │   ├────►│   ├────►│   │
+                               └───┘     └─┬─┘     └───┘
+                                           │         ▲
+                                           │         │
+                                           ▼         │
+                               ┌───┐     ┌───┐     ┌─┴─┐
+                       Chain C │   ├────►│   ├────►│   │
+                               └───┘     └───┘     └───┘
+</code></pre>
+<p>The Linera protocol allows receivers to discard messages but not to change the
+ordering of selected messages inside the communication queue between two chains.
+If a selected message fails to execute, the wallet will automatically reject it
+when proposing the receiver's block. The current implementation of the Linera
+client always selects as many messages as possible from inboxes, and never
+discards messages unless they fail to execute.</p>
+<h2 id="chain-ownership-semantics"><a class="header" href="#chain-ownership-semantics">Chain ownership semantics</a></h2>
+<p>Active chains can have one or multiple owners. Chains with zero owners are
+permanently deactivated.</p>
+<p>In Linera, the validators guarantee <em>safety</em>: On each chain, at each height,
+there is at most one unique block.</p>
+<p>But <em>liveness</em>—actually adding blocks to a chain at all—relies on the owners.
+There are different types of rounds and owners, optimized for different use
+cases:</p>
+<ul>
+<li>First an optional <em>fast</em> round, where a <em>super owner</em> can propose blocks that
+get confirmed with very particularly low latency, optimal for single-owner
+chains with no contention.</li>
+<li>Then a number of <em>multi-leader rounds</em>, where all <em>regular owners</em> can propose
+blocks. This works well even if there is occasional, temporary contention: an
+owner using multiple devices, or multiple people using the same chain
+infrequently.</li>
+<li>And finally <em>single-leader rounds</em>: These give each regular chain owner a time
+slot in which only they can propose a new block, without being hindered by any
+other owners' proposals. This is ideal for chains with many users that are
+trying to commit blocks at the same time.</li>
+</ul>
+<p>The number of multi-leader rounds is configurable: On chains with fluctuating
+levels of activity, this allows the system to dynamically switch to
+single-leader mode whenever all multi-leader rounds fail during periods of high
+contention. Chains that very often have high activity from multiple owners can
+set the number of multi-leader rounds to 0.</p>
+<p>For more detail and examples on how to open and close chains, see the wallet
+section on <a href="developers/core_concepts/wallets.html#opening-a-chain">chain management</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="wallets"><a class="header" href="#wallets">Wallets</a></h1>
+<p>As in traditional blockchains, Linera wallets are in charge of holding user
+private keys. However, instead of signing transactions, Linera wallets are meant
+to sign blocks and propose them to extend the chains owned by their users.</p>
+<p>In practice, wallets include a node which tracks a subset of Linera chains. We
+will see in the <a href="developers/core_concepts/node_service.html">next section</a> how a Linera wallet can run a
+GraphQL service to expose the state of its chains to web frontends.</p>
+<blockquote>
+<p>The command-line tool <code>linera</code> is the main way for developers to interact with
+a Linera network and manage the developer wallets present locally on the
+system.</p>
+</blockquote>
+<p>Note that this command-line tool is intended mainly for development purposes.
+Our goal is that end users eventually manage their wallets in a browser
+extension.</p>
+<h2 id="creating-a-developer-wallet"><a class="header" href="#creating-a-developer-wallet">Creating a developer wallet</a></h2>
+<p>The simplest way to obtain a wallet with the <code>linera</code> CLI tool is to run the
+following command:</p>
+<pre><code class="language-bash">linera wallet init --with-new-chain --faucet $FAUCET_URL
+</code></pre>
+<p>where <code>$FAUCET_URL</code> represents the URL of the network's faucet (see
+<a href="developers/core_concepts/../getting_started/hello_linera.html">previous section</a>)</p>
+<h2 id="selecting-a-wallet"><a class="header" href="#selecting-a-wallet">Selecting a wallet</a></h2>
+<p>The private state of a wallet is conventionally stored in a file <code>wallet.json</code>,
+while the state of its node is stored in a file <code>linera.db</code>.</p>
+<p>To switch between wallets, you may use the <code>--wallet</code> and <code>--storage</code> options of
+the <code>linera</code> tool, e.g. as in
+<code>linera --wallet wallet2.json --storage rocksdb:linera2.db</code>.</p>
+<p>You may also define the environment variables <code>LINERA_STORAGE</code> and
+<code>LINERA_WALLET</code> to the same effect. E.g. <code>LINERA_STORAGE=$PWD/wallet2.json</code> and
+<code>LINERA_WALLET=$PWD/wallet2.json</code>.</p>
+<p>Finally, if <code>LINERA_STORAGE_$I</code> and <code>LINERA_WALLET_$I</code> are defined for some
+number <code>I</code>, you may call <code>linera --with-wallet $I</code> (or <code>linera -w $I</code> for
+short).</p>
+<h2 id="chain-management"><a class="header" href="#chain-management">Chain management</a></h2>
+<h3 id="listing-chains"><a class="header" href="#listing-chains">Listing chains</a></h3>
+<p>To list the chains present in your wallet, you may use the command <code>show</code>:</p>
+<pre><code class="language-bash">linera wallet show
+╭──────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────╮
+│ Chain ID                                                         ┆ Latest Block                                                                         │
+╞══════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════════════════════╡
+│ 668774d6f49d0426f610ad0bfa22d2a06f5f5b7b5c045b84a26286ba6bce93b4 ┆ Public Key:         3812c2bf764e905a3b130a754e7709fe2fc725c0ee346cb15d6d261e4f30b8f1 │
+│                                                                  ┆ Owner:              c9a538585667076981abfe99902bac9f4be93714854281b652d07bb6d444cb76 │
+│                                                                  ┆ Block Hash:         -                                                                │
+│                                                                  ┆ Timestamp:          2023-04-10 13:52:20.820840                                       │
+│                                                                  ┆ Next Block Height:  0                                                                │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ 91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f646 ┆ Public Key:         29c19718a26cb0d5c1d28102a2836442f53e3184f33b619ff653447280ccba1a │
+│                                                                  ┆ Owner:              efe0f66451f2f15c33a409dfecdf76941cf1e215c5482d632c84a2573a1474e8 │
+│                                                                  ┆ Block Hash:         51605cad3f6a210183ac99f7f6ef507d0870d0c3a3858058034cfc0e3e541c13 │
+│                                                                  ┆ Timestamp:          2023-04-10 13:52:21.885221                                       │
+│                                                                  ┆ Next Block Height:  1                                                                │
+╰──────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────╯
+
+</code></pre>
+<p>Each row represents a chain present in the wallet. On the left is the unique
+identifier on the chain, and on the right is metadata for that chain associated
+with the latest block.</p>
+<h3 id="default-chain"><a class="header" href="#default-chain">Default chain</a></h3>
+<p>Each wallet has a default chain that all commands apply to unless you specify
+another <code>--chain</code> on the command line.</p>
+<p>The default chain is set initially, when the first chain is added to the wallet.
+You can check the default chain for your wallet by running:</p>
+<pre><code class="language-bash">linera wallet show
+</code></pre>
+<p>The chain ID which is in green text instead of white text is your default chain.</p>
+<p>To change the default chain for your wallet, use the <code>set-default</code> command:</p>
+<pre><code class="language-bash">linera wallet set-default &lt;chain-id&gt;
+</code></pre>
+<h3 id="creating-chains"><a class="header" href="#creating-chains">Creating chains</a></h3>
+<p>In the Linera protocol, chains are generally created using a transaction from an
+existing chain.</p>
+<h4 id="create-a-chain-from-an-existing-one-for-your-own-wallet"><a class="header" href="#create-a-chain-from-an-existing-one-for-your-own-wallet">Create a chain from an existing one for your own wallet</a></h4>
+<p>To create a new chain from the default chain of your wallet, you can use the
+<code>open-chain</code> command:</p>
+<pre><code class="language-bash">linera open-chain
+</code></pre>
+<p>This will create a new chain and add it to the wallet. Use the <code>wallet show</code>
+command to see your existing chains.</p>
+<h4 id="create-a-new-chain-from-an-existing-one-for-another-wallet"><a class="header" href="#create-a-new-chain-from-an-existing-one-for-another-wallet">Create a new chain from an existing one for another wallet</a></h4>
+<p>Creating a chain for another <code>wallet</code> requires an extra two steps. Let's
+initialize a second wallet:</p>
+<pre><code class="language-bash">linera --wallet wallet2.json --storage rocksdb:linera2.db wallet init --faucet $FAUCET_URL
+</code></pre>
+<p>First <code>wallet2</code> must create an unassigned keypair. The public part of that
+keypair is then sent to the <code>wallet</code> who is the chain creator.</p>
+<pre><code class="language-bash">linera --wallet wallet2.json keygen
+6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 # this is the public key for the unassigned keypair
+</code></pre>
+<p>Next, using the public key, <code>wallet</code> can open a chain for <code>wallet2</code>.</p>
+<pre><code class="language-bash">linera open-chain --to-public-key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888
+e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
+fc9384defb0bcd8f6e206ffda32599e24ba715f45ec88d4ac81ec47eb84fa111
+</code></pre>
+<p>The first line is the message ID specifying the cross-chain message that creates
+the new chain. The second line is the new chain's ID.</p>
+<p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use the
+<code>assign</code> command:</p>
+<pre><code class="language-bash"> linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --message-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
+</code></pre>
+<p>Note that in the case of a test network with a faucet, the new wallet and the
+new chain could also have been created from the faucet directly using:</p>
+<pre><code class="language-bash">linera --wallet wallet2.json --storage rocksdb:linera2.db wallet init --with-new-chain --faucet $FAUCET_URL
+</code></pre>
+<h4 id="opening-a-chain-with-multiple-users"><a class="header" href="#opening-a-chain-with-multiple-users">Opening a chain with multiple users</a></h4>
+<p>The <code>open-chain</code> command is a simplified version of <code>open-multi-owner-chain</code>,
+which gives you fine-grained control over the set and kinds of owners and rounds
+for the new chain, and the timeout settings for the rounds. E.g. this creates a
+chain with two owners and two multi-leader rounds.</p>
+<pre><code class="language-bash">linera open-multi-owner-chain \
+    --chain-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000 \
+    --owner-public-keys 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 \
+                        ca909dcf60df014c166be17eb4a9f6e2f9383314a57510206a54cd841ade455e \
+    --multi-leader-rounds 2
+</code></pre>
+<p>The <code>change-ownership</code> command offers the same options to add or remove owners
+and change round settings for an existing chain.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="node-service"><a class="header" href="#node-service">Node Service</a></h1>
+<p>So far we've seen how to use the Linera client treating it as a binary in your
+terminal. However, the client also acts as a node which:</p>
+<ol>
+<li>Executes blocks</li>
+<li>Exposes a GraphQL API and IDE for dynamically interacting with applications
+and the system</li>
+<li>Listens for notifications from validators and automatically updates local
+chains.</li>
+</ol>
+<p>To interact with the node service, run <code>linera</code> in <code>service</code> mode:</p>
+<pre><code class="language-bash">linera service
+</code></pre>
+<p>This will run the node service on port 8080 by default (this can be overridden
+using the <code>--port</code> flag).</p>
+<h2 id="a-note-on-graphql"><a class="header" href="#a-note-on-graphql">A note on GraphQL</a></h2>
+<p>Linera uses GraphQL as the query language for interfacing with different parts
+of the system. GraphQL enables clients to craft queries such that they receive
+exactly what they want and nothing more.</p>
+<p>GraphQL is used extensively during application development, especially to query
+the state of an application from a front-end for example.</p>
+<p>To learn more about GraphQL check out the
+<a href="https://graphql.org/learn/">official docs</a>.</p>
+<h2 id="graphiql-ide"><a class="header" href="#graphiql-ide">GraphiQL IDE</a></h2>
+<p>Conveniently, the node service exposes a GraphQL IDE called GraphiQL. To use
+GraphiQL start the node service and navigate to <code>localhost:8080/</code>.</p>
+<p>Using the schema explorer on the left of the GraphiQL IDE you can dynamically
+explore the state of the system and your applications.</p>
+<p><img src="developers/core_concepts/graphiql.png" alt="graphiql.png" /></p>
+<h2 id="graphql-system-api"><a class="header" href="#graphql-system-api">GraphQL system API</a></h2>
+<p>The node service also exposes a GraphQL API which corresponds to the set of
+system operations. You can explore the full set of operations by clicking on
+<code>MutationRoot</code>.</p>
+<h2 id="graphql-application-api"><a class="header" href="#graphql-application-api">GraphQL application API</a></h2>
+<p>To interact with an application, we run the Linera client in service mode. It
+exposes a GraphQL API for every application running on any owned chain at
+<code>localhost:8080/chains/&lt;chain-id&gt;/applications/&lt;application-id&gt;</code>.</p>
+<p>Navigating there with your browser will open a GraphiQL interface which enables
+you to graphically explore the state of your application.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
+<p>The programming model of Linera is designed so that developers can take
+advantage of microchains to scale their applications.</p>
+<p>Linera uses the <a href="https://webassembly.org">WebAssembly (Wasm)</a> Virtual Machine to
+execute user applications. Currently, the <a href="developers/core_concepts/../backend.html">Linera SDK</a> is focused
+on the <a href="https://www.rust-lang.org/">Rust</a> programming language for the backend
+and <a href="https://www.typescriptlang.org/">TypeScript</a> for the frontend.</p>
+<p>Linera applications are structured using the familiar notion of <strong>Rust crate</strong>:
+the external interfaces of an application (including instantiation parameters,
+operations and messages) generally go into the library part of its crate, while
+the core of each application is compiled into binary files for the Wasm
+architecture.</p>
+<h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application deployment lifecycle</a></h2>
+<p>Linera Applications are designed to be powerful yet re-usable. For this reason
+there is a distinction between the bytecode and an application instance on the
+network.</p>
+<p>Applications undergo a lifecycle transition aimed at making development easy and
+flexible:</p>
+<ol>
+<li>The bytecode is built from a Rust project with the <code>linera-sdk</code> dependency.</li>
+<li>The bytecode is published to the network on a microchain, and assigned an
+identifier.</li>
+<li>A user can create a new application instance, by providing the bytecode
+identifier and instantiation arguments. This process returns an application
+identifier which can be used to reference and interact with the application.</li>
+<li>The same bytecode identifier can be used as many times needed by as many
+users needed to create distinct applications.</li>
+</ol>
+<p>Importantly, the application deployment lifecycle is abstracted from the user,
+and an application can be published with a single command:</p>
+<pre><code class="language-bash">linera publish-and-create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
+</code></pre>
+<p>This will publish the bytecode as well as instantiate the application for you.</p>
+<h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an application</a></h2>
+<p>An <strong>application</strong> is broken into two major components, the <em>contract</em> and the
+<em>service</em>.</p>
+<p>The <strong>contract</strong> is gas-metered, and is the part of the application which
+executes operations and messages, make cross-application calls and modifies the
+application's state. The details are covered in more depth in the
+<a href="developers/core_concepts/../backend.html">application backend guide</a>.</p>
+<p>The <strong>service</strong> is non-metered and read-only. It is used primarily to query the
+state of an application and populate the presentation layer (think front-end)
+with the data required for a user interface.</p>
+<h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and messages</a></h2>
+<blockquote>
+<p>For this section we'll be using a simplified version of the example
+application called "fungible" where users can send tokens to each other.</p>
+</blockquote>
+<p>At the system-level, interacting with an application can be done via operations
+and messages.</p>
+<p><strong>Operations</strong> are defined by an application developer and each application can
+have a completely different set of operations. Chain owners then actively create
+operations and put them in their block proposals to interact with an
+application. Other applications may also call the application by providing an
+operation for it to execute, this is called a cross-application call and always
+happens within the same chain. Operations for cross-application calls may return
+a response value back to the caller.</p>
+<p>Taking the "fungible token" application as an example, an operation for a user
+to transfer funds to another user would look like this:</p>
+<pre><code class="language-rust"><span class="boring">extern crate serde;
+</span><span class="boring">extern crate linera_sdk;
+</span><span class="boring">use serde::{Deserialize, Serialize};
+</span><span class="boring">use linera_sdk::linera_base_types::*;
+</span>#[derive(Debug, Deserialize, Serialize)]
+pub enum Operation {
+    /// A transfer from a (locally owned) account to a (possibly remote) account.
+    Transfer {
+        owner: AccountOwner,
+        amount: Amount,
+        target_account: Account,
+    },
+    // Meant to be extended here
+}</code></pre>
+<p><strong>Messages</strong> result from the execution of operations or other messages. Messages
+can be sent from one chain to another, always within the same application. Block
+proposers also actively include messages in their block proposal, but unlike
+with operations, they are only allowed to include them in the right order
+(possibly skipping some), and only if they were actually created by another
+chain (or by a previous block of the same chain). Messages that originate from
+the same transaction are included as a single transaction in the receiving
+block.</p>
+<p>In our "fungible token" application, a message to credit an account would look
+like this:</p>
+<pre><code class="language-rust"><span class="boring">extern crate serde;
+</span><span class="boring">extern crate linera_sdk;
+</span><span class="boring">use serde::{Deserialize, Serialize};
+</span><span class="boring">use linera_sdk::linera_base_types::*;
+</span>#[derive(Debug, Deserialize, Serialize)]
+pub enum Message {
+    Credit { owner: AccountOwner, amount: Amount },
+    // Meant to be extended here
+}</code></pre>
+<h3 id="authentication"><a class="header" href="#authentication">Authentication</a></h3>
+<p>Operations in a block are always authenticated and messages may be
+authenticated. The signer of a block becomes the authenticator of all the
+operations in that block. As operations are being executed by applications,
+messages can be created to be sent to other chains. When they are created, they
+can be configured to be authenticated. In that case, the message receives the
+same authentication as the operation that created it. If handling an incoming
+message creates new messages, those may also be configured to have the same
+authentication as the received message.</p>
+<p>In other words, the block signer can have its authority propagated across chains
+through series of messages. This allows applications to safely store user state
+on chains that the user may not have the authority to produce blocks. The
+application may also allow only the authorized user to change that state, and
+not even the chain owner is able to override that.</p>
+<p>The figure below shows four chains (A, B, C, D) and some blocks produced in
+them. In this example, each chain is owned by a single owner (aka. address).
+Owners are in charge of producing blocks and sign new blocks using their signing
+keys. Some blocks show the operations and incoming messages they accept, where
+the authentication is shown inside parenthesis. All operations produced are
+authenticated by the block proposer, and if these are all single user chains,
+the proposer is always the chain owner. Messages that have authentication use
+the one from the operation or message that created it.</p>
+<p>One example in the figure is that chain A produced a block with Operation 1,
+which is authenticated by the owner of chain A (written <code>(a)</code>). That operation
+sent a message to chain B, and assuming the message was sent with the
+authentication forwarding enabled, it is received and executed in chain B with
+the authentication of <code>(a)</code>. Another example is that chain D produced a block
+with Operation 2, which is authenticated by the owner of chain D (written
+<code>(d)</code>). That operation sent a message to chain C, which is executed with
+authentication of <code>(d)</code> like the example before. Handling that message in chain
+C produced a new message, which was sent to chain B. That message, when received
+by chain B is executed with the authentication of <code>(d)</code>.</p>
+<pre><code class="language-ignore">                            ┌───┐     ┌─────────────────┐     ┌───┐
+       Chain A owned by (a) │   ├────►│ Operation 1 (a) ├────►│   │
+                            └───┘     └────────┬────────┘     └───┘
+                                               │
+                                               └────────────┐
+                                                            ▼
+                                                ┌──────────────────────────┐
+                            ┌───┐     ┌───┐     │ Message from chain A (a) │
+       Chain B owned by (b) │   ├────►│   ├────►│ Message from chain C (d) |
+                            └───┘     └───┘     │ Operation 3 (b)          │
+                                                └──────────────────────────┘
+                                                            ▲
+                                                   ┌────────┘
+                                                   │
+                            ┌───┐     ┌──────────────────────────┐     ┌───┐
+       Chain C owned by (c) │   ├────►│ Message from chain D (d) ├────►│   │
+                            └───┘     └──────────────────────────┘     └───┘
+                                                 ▲
+                                     ┌───────────┘
+                                     │
+                            ┌─────────────────┐     ┌───┐     ┌───┐
+       Chain D owned by (d) │ Operation 2 (d) ├────►│   ├────►│   │
+                            └─────────────────┘     └───┘     └───┘
+</code></pre>
+<p>An example where this is used is in the Fungible application, where a <code>Claim</code>
+operation allows retrieving money from a chain the user does not control (but
+the user still trusts will produce a block receiving their message). Without the
+<code>Claim</code> operation, users would only be able to store their tokens on their own
+chains, and multi-owner and public chains would have their tokens shared between
+anyone able to produce a block.</p>
+<p>With the <code>Claim</code> operation, users can store their tokens on another chain where
+they're able to produce blocks or where they trust the owner will produce blocks
+receiving their messages. Only they are able to move their tokens, even on
+chains where ownership is shared or where they are not able to produce blocks.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-linera-applications"><a class="header" href="#writing-linera-applications">Writing Linera Applications</a></h1>
+<p>In this section, we'll be exploring how to create Web3 applications using the
+Linera SDK.</p>
+<p>We'll use a simple "counter" application as a running example.</p>
+<p>We'll focus on the backend of the application, which consists of two main parts:
+a <em>smart contract</em> and its GraphQL service.</p>
+<p>Both the contract and the service of an application are written in Rust using
+the crate <a href="https://crates.io/crates/linera-sdk"><code>linera-sdk</code></a>, and compiled to
+Wasm bytecode.</p>
+<p>This section should be seen as a guide versus a reference manual for the SDK.
+For the reference manual, refer to the
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/">documentation of the crate</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-linera-project"><a class="header" href="#creating-a-linera-project">Creating a Linera Project</a></h1>
+<p>To create your Linera project, use the <code>linera project new</code> command. The command
+should be executed outside the <code>linera-protocol</code> folder. It sets up the
+scaffolding and requisite files:</p>
+<pre><code class="language-bash">linera project new my-counter
+</code></pre>
+<p><code>linera project new</code> bootstraps your project by creating the following key
+files:</p>
+<ul>
+<li><code>Cargo.toml</code>: your project's manifest filled with the necessary dependencies
+to create an app;</li>
+<li><code>src/lib.rs</code>: the application's ABI definition;</li>
+<li><code>src/state.rs</code>: the application's state;</li>
+<li><code>src/contract.rs</code>: the application's contract, and the binary target for the
+contract bytecode;</li>
+<li><code>src/service.rs</code>: the application's service, and the binary target for the
+service bytecode.</li>
+</ul>
+<blockquote>
+<p>When writing Linera applications it is a convention to use your app's name as
+a prefix for names of <code>trait</code>, <code>struct</code>, etc. Hence, in the following manual,
+we will use <code>CounterContract</code>, <code>CounterService</code>, etc.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-the-application-state"><a class="header" href="#creating-the-application-state">Creating the Application State</a></h1>
+<p>The state of a Linera application consists of onchain data that are persisted
+between transactions.</p>
+<p>The <code>struct</code> which defines your application's state can be found in
+<code>src/state.rs</code>. To represent our counter, we're going to use a <code>u64</code> integer.</p>
+<p>While we could use a plain data-structure for the entire application state:</p>
+<pre><code class="language-rust">struct Counter {
+  value: u64
+}</code></pre>
+<p>in general, we prefer to manage persistent data using the concept of "views":</p>
+<blockquote>
+<p><a href="https://docs.rs/linera-views/latest/linera_views/">Views</a> allow an
+application to load persistent data in memory and stage modifications in a
+flexible way.</p>
+<p>Views resemble the persistent objects of an
+<a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">ORM</a>
+framework, except that they are stored as a set of key-value pairs (instead of
+a SQL row).</p>
+</blockquote>
+<p>In this case, the struct in <code>src/state.rs</code> should be replaced by</p>
+<pre><code class="language-rust"><span class="boring">extern crate linera_sdk;
+</span><span class="boring">extern crate async_graphql;
+</span><span class="boring">use linera_sdk::linera_base_types::*;
+</span><span class="boring">use linera_sdk::*;
+</span><span class="boring">use std::collections::HashSet;
+</span><span class="boring">use linera_sdk::views::{linera_views, RegisterView, RootView, ViewStorageContext};
+</span><span class="boring">use crate::linera_sdk::views::View as _;
+</span>/// The application state.
+#[derive(RootView, async_graphql::SimpleObject)]
+#[view(context = "ViewStorageContext")]
+pub struct Counter {
+    pub value: RegisterView&lt;u64&gt;,
+    // Additional fields here will get their own key in storage.
+}</code></pre>
+<p>and the occurrences of <code>Application</code> in the rest of the project should be
+replaced by <code>Counter</code>.</p>
+<p>The derive macro <code>async_graphql::SimpleObject</code> is related to GraphQL queries
+discussed in the <a href="developers/backend/service.html">next section</a>.</p>
+<p>A <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. Other data
+structures available in the library
+<a href="https://docs.rs/linera-views/latest/linera_views/"><code>linera_views</code></a> include:</p>
+<ul>
+<li><code>LogView</code> for a growing vector of values;</li>
+<li><code>QueueView</code> for queues;</li>
+<li><code>MapView</code> and <code>CollectionView</code> for associative maps; specifically, <code>MapView</code>
+in the case of static values, and <code>CollectionView</code> when values are other
+views.</li>
+</ul>
+<p>For an exhaustive list of the different constructions, refer to the crate
+<a href="https://docs.rs/linera-views/latest/linera_views/">documentation</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="defining-the-abi"><a class="header" href="#defining-the-abi">Defining the ABI</a></h1>
+<p>The Application Binary Interface (ABI) of a Linera application defines how to
+interact with this application from other parts of the system. It includes the
+data structures, data types, and functions exposed by on-chain contracts and
+services.</p>
+<p>ABIs are usually defined in <code>src/lib.rs</code> and compiled across all architectures
+(Wasm and native).</p>
+<p>For a reference guide, check out the
+<a href="https://docs.rs/linera-base/latest/linera_base/abi/">documentation of the crate</a>.</p>
+<h2 id="defining-a-marker-struct"><a class="header" href="#defining-a-marker-struct">Defining a marker struct</a></h2>
+<p>The library part of your application (generally in <code>src/lib.rs</code>) must define a
+public empty struct that implements the <code>Abi</code> trait.</p>
+<pre><code class="language-rust">struct CounterAbi;</code></pre>
+<p>The <code>Abi</code> trait combines the <code>ContractAbi</code> and <code>ServiceAbi</code> traits to include
+the types that your application exports.</p>
+<pre><code class="language-rust ignore">/// A trait that includes all the types exported by a Linera application (both contract
+/// and service).
+pub trait Abi: ContractAbi + ServiceAbi {}</code></pre>
+<p>Next, we're going to implement each of the two traits.</p>
+<h2 id="contract-abi"><a class="header" href="#contract-abi">Contract ABI</a></h2>
+<p>The <code>ContractAbi</code> trait defines the data types that your application uses in a
+contract. Each type represents a specific part of the contract's behavior:</p>
+<pre><code class="language-rust ignore">/// A trait that includes all the types exported by a Linera application contract.
+pub trait ContractAbi {
+    /// The type of operation executed by the application.
+    ///
+    /// Operations are transactions directly added to a block by the creator (and signer)
+    /// of the block. Users typically use operations to start interacting with an
+    /// application on their own chain.
+    type Operation: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
+
+    /// The response type of an application call.
+    type Response: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
+
+    /// How the `Operation` is deserialized
+    fn deserialize_operation(operation: Vec&lt;u8&gt;) -&gt; Result&lt;Self::Operation, String&gt; {
+        bcs::from_bytes(&amp;operation)
+            .map_err(|e| format!("BCS deserialization error {e:?} for operation {operation:?}"))
+    }
+
+    /// How the `Operation` is serialized
+    fn serialize_operation(operation: &amp;Self::Operation) -&gt; Result&lt;Vec&lt;u8&gt;, String&gt; {
+        bcs::to_bytes(operation)
+            .map_err(|e| format!("BCS serialization error {e:?} for operation {operation:?}"))
+    }
+
+    /// How the `Response` is deserialized
+    fn deserialize_response(response: Vec&lt;u8&gt;) -&gt; Result&lt;Self::Response, String&gt; {
+        bcs::from_bytes(&amp;response)
+            .map_err(|e| format!("BCS deserialization error {e:?} for response {response:?}"))
+    }
+
+    /// How the `Response` is serialized
+    fn serialize_response(response: Self::Response) -&gt; Result&lt;Vec&lt;u8&gt;, String&gt; {
+        bcs::to_bytes(&amp;response)
+            .map_err(|e| format!("BCS serialization error {e:?} for response {response:?}"))
+    }
+}</code></pre>
+<p>All these types must implement the <code>Serialize</code>, <code>DeserializeOwned</code>, <code>Send</code>,
+<code>Sync</code>, <code>Debug</code> traits, and have a <code>'static</code> lifetime.</p>
+<p>In our example, we would like to change our <code>Operation</code> to <code>u64</code>, like so:</p>
+<pre><code class="language-rust ignore">pub struct CounterAbi;
+
+impl ContractAbi for CounterAbi {
+    type Operation = u64;
+    type Response = u64;
+}</code></pre>
+<h2 id="service-abi"><a class="header" href="#service-abi">Service ABI</a></h2>
+<p>The <code>ServiceAbi</code> is in principle very similar to the <code>ContractAbi</code>, just for the
+service component of your application.</p>
+<p>The <code>ServiceAbi</code> trait defines the types used by the service part of your
+application:</p>
+<pre><code class="language-rust ignore">/// A trait that includes all the types exported by a Linera application service.
+pub trait ServiceAbi {
+    /// The type of a query receivable by the application's service.
+    type Query: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
+
+    /// The response type of the application's service.
+    type QueryResponse: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
+}</code></pre>
+<p>For our <code>Counter</code> example, we'll be using GraphQL to query our application so
+our <code>ServiceAbi</code> should reflect that:</p>
+<pre><code class="language-rust ignore">use async_graphql::{Request, Response};
+
+impl ServiceAbi for CounterAbi {
+    type Query = Request;
+    type QueryResponse = Response;
+}</code></pre>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<ul>
+<li>
+<p>The full trait definition of <code>Abi</code> can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/linera-base/src/abi.rs">here</a>.</p>
+</li>
+<li>
+<p>The full <code>Counter</code> example application can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/counter">here</a>.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-the-contract-binary"><a class="header" href="#writing-the-contract-binary">Writing the Contract Binary</a></h1>
+<p>The contract binary is the first component of a Linera application. It can
+actually change the state of the application.</p>
+<p>To create a contract, we need to create a new type and implement the <code>Contract</code>
+trait for it, which is as follows:</p>
+<pre><code class="language-rust ignore">pub trait Contract: WithContractAbi + ContractAbi + Sized {
+    /// The type of message executed by the application.
+    type Message: Serialize + DeserializeOwned + Debug;
+
+    /// Immutable parameters specific to this application (e.g. the name of a token).
+    type Parameters: Serialize + DeserializeOwned + Clone + Debug;
+
+    /// Instantiation argument passed to a new application on the chain that created it
+    /// (e.g. an initial amount of tokens minted).
+    type InstantiationArgument: Serialize + DeserializeOwned + Debug;
+
+    /// Event values for streams created by this application.
+    type EventValue: Serialize + DeserializeOwned + Debug;
+
+    /// Creates an in-memory instance of the contract handler.
+    async fn load(runtime: ContractRuntime&lt;Self&gt;) -&gt; Self;
+
+    /// Instantiates the application on the chain that created it.
+    async fn instantiate(&amp;mut self, argument: Self::InstantiationArgument);
+
+    /// Applies an operation from the current block.
+    async fn execute_operation(&amp;mut self, operation: Self::Operation) -&gt; Self::Response;
+
+    /// Applies a message originating from a cross-chain message.
+    async fn execute_message(&amp;mut self, message: Self::Message);
+
+    /// Finishes the execution of the current transaction.
+    async fn store(self);
+}</code></pre>
+<p>There's quite a bit going on here, so let's break it down and take one method at
+a time.</p>
+<p>For this application, we'll be using the <code>load</code>, <code>execute_operation</code> and <code>store</code>
+methods.</p>
+<h2 id="the-contract-lifecycle"><a class="header" href="#the-contract-lifecycle">The contract lifecycle</a></h2>
+<p>To implement the application contract, we first create a type for the contract:</p>
+<pre><code class="language-rust ignore">linera_sdk::contract!(CounterContract);
+
+pub struct CounterContract {
+    state: CounterState,
+    runtime: ContractRuntime&lt;Self&gt;,
+}</code></pre>
+<p>This type usually contains at least two fields: the persistent <code>state</code> defined
+earlier and a handle to the runtime. The runtime provides access to information
+about the current execution and also allows sending messages, among other
+things. Other fields can be added, and they can be used to store volatile data
+that only exists while the current transaction is being executed, and discarded
+afterwards.</p>
+<p>When a transaction is executed, the contract type is created through a call to
+<code>Contract::load</code> method. This method receives a handle to the runtime that the
+contract can use, and should use it to load the application state. For our
+implementation, we will load the state and create the <code>CounterContract</code>
+instance:</p>
+<pre><code class="language-rust ignore">    async fn load(runtime: ContractRuntime&lt;Self&gt;) -&gt; Self {
+        let state = CounterState::load(runtime.root_view_storage_context())
+            .await
+            .expect("Failed to load state");
+        CounterContract { state, runtime }
+    }</code></pre>
+<p>When the transaction finishes executing successfully, there's a final step where
+all loaded application contracts are called in order to do any final checks and
+persist its state to storage. That final step is a call to the <code>Contract::store</code>
+method, which can be thought of as similar to executing a destructor. In our
+implementation we will persist the state back to storage:</p>
+<pre><code class="language-rust ignore">    async fn store(mut self) {
+        self.state.save().await.expect("Failed to save state");
+    }</code></pre>
+<p>It's possible to do more than just saving the state, and the
+<a href="developers/backend/../advanced_topics/contract_finalize.html">Contract finalization section</a>
+provides more details on that.</p>
+<h2 id="instantiating-our-application"><a class="header" href="#instantiating-our-application">Instantiating our Application</a></h2>
+<p>The first thing that happens when an application is created from a bytecode is
+that it is instantiated. This is done by calling the contract's
+<code>Contract::instantiate</code> method.</p>
+<p><code>Contract::instantiate</code> is only called once when the application is created and
+only on the microchain that created the application.</p>
+<p>Deployment on other microchains will use the <code>Default</code> value of all sub-views in
+the state if the state uses the view paradigm.</p>
+<p>For our example application, we'll want to initialize the state of the
+application to an arbitrary number that can be specified on application creation
+using its instantiation parameters:</p>
+<pre><code class="language-rust ignore">    async fn instantiate(&amp;mut self, value: u64) {
+        // Validate that the application parameters were configured correctly.
+        self.runtime.application_parameters();
+
+        self.state.value.set(value);
+    }</code></pre>
+<h2 id="implementing-the-increment-operation"><a class="header" href="#implementing-the-increment-operation">Implementing the increment operation</a></h2>
+<p>Now that we have our counter's state and a way to initialize it to any value we
+would like, we need a way to increment our counter's value. Execution requests
+from block proposers or other applications are broadly called 'operations'.</p>
+<p>To handle an operation, we need to implement the <code>Contract::execute_operation</code>
+method. In the counter's case, the operation it will be receiving is a <code>u64</code>
+which is used to increment the counter by that value:</p>
+<pre><code class="language-rust ignore">    async fn execute_operation(&amp;mut self, operation: u64) -&gt; u64 {
+        let new_value = self.state.value.get() + operation;
+        self.state.value.set(new_value);
+        new_value
+    }</code></pre>
+<h2 id="declaring-the-abi"><a class="header" href="#declaring-the-abi">Declaring the ABI</a></h2>
+<p>Finally, we link our <code>Contract</code> trait implementation with the ABI of the
+application:</p>
+<pre><code class="language-rust ignore">impl WithContractAbi for CounterContract {
+    type Abi = CounterAbi;
+}</code></pre>
+<h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
+<ul>
+<li>
+<p>The full trait definition of <code>Contract</code> can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/linera-sdk/src/lib.rs">here</a>.</p>
+</li>
+<li>
+<p>The full <code>Counter</code> example application can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/counter">here</a>.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-the-service-binary"><a class="header" href="#writing-the-service-binary">Writing the Service Binary</a></h1>
+<p>The service binary is the second component of a Linera application. It is
+compiled into a separate Bytecode from the contract and is run independently. It
+is not metered (meaning that querying an application's service does not consume
+gas), and can be thought of as a read-only view into your application.</p>
+<p>Application states can be arbitrarily complex, and most of the time you don't
+want to expose this state in its entirety to those who would like to interact
+with your app. Instead, you might prefer to define a distinct set of queries
+that can be made against your application.</p>
+<p>The <code>Service</code> trait is how you define the interface into your application. The
+<code>Service</code> trait is defined as follows:</p>
+<pre><code class="language-rust ignore">pub trait Service: WithServiceAbi + ServiceAbi + Sized {
+    /// Immutable parameters specific to this application.
+    type Parameters: Serialize + DeserializeOwned + Send + Sync + Clone + Debug + 'static;
+
+    /// Creates an in-memory instance of the service handler.
+    async fn new(runtime: ServiceRuntime&lt;Self&gt;) -&gt; Self;
+
+    /// Executes a read-only query on the state of this application.
+    async fn handle_query(&amp;self, query: Self::Query) -&gt; Self::QueryResponse;
+}</code></pre>
+<p>Let's implement <code>Service</code> for our counter application.</p>
+<p>First, we create a new type for the service, similarly to the contract:</p>
+<pre><code class="language-rust ignore">linera_sdk::service!(CounterService);
+
+pub struct CounterService {
+    state: CounterState,
+    runtime: Arc&lt;ServiceRuntime&lt;Self&gt;&gt;,
+}</code></pre>
+<p>Just like with the <code>CounterContract</code> type, this type usually has two types: the
+application <code>state</code> and the <code>runtime</code>. We can omit the fields if we don't use
+them, so in this example we're omitting the <code>runtime</code> field, since its only used
+when constructing the <code>CounterService</code> type.</p>
+<p>As before, the macro <code>service!</code> generates the necessary boilerplate for
+implementing the service
+<a href="https://component-model.bytecodealliance.org/design/wit.html">WIT interface</a>,
+exporting the necessary resource types and functions so that the service can be
+executed.</p>
+<p>Next, we need to implement the <code>Service</code> trait for <code>CounterService</code> type. The
+first step is to define the <code>Service</code>'s associated type, which is the global
+parameters specified when the application is instantiated. In our case, the
+global parameters aren't used, so we can just specify the unit type:</p>
+<pre><code class="language-rust ignore">impl Service for CounterService {
+    type Parameters = ();
+
+    // ...
+}</code></pre>
+<p>Also like in contracts, we must implement a <code>load</code> constructor when implementing
+the <code>Service</code> trait. The constructor receives the runtime handle and should use
+it to load the application state:</p>
+<pre><code class="language-rust ignore">    async fn new(runtime: ServiceRuntime&lt;Self&gt;) -&gt; Self {
+        let state = CounterState::load(runtime.root_view_storage_context())
+            .await
+            .expect("Failed to load state");
+        CounterService {
+            state,
+            runtime: Arc::new(runtime),
+        }
+    }</code></pre>
+<p>Services don't have a <code>store</code> method because they are read-only and can't
+persist any changes back to the storage.</p>
+<p>The actual functionality of the service starts in the <code>handle_query</code> method. We
+will accept GraphQL queries and handle them using the
+<a href="https://github.com/async-graphql/async-graphql"><code>async-graphql</code> crate</a>. To
+forward the queries to custom GraphQL handlers we will implement in the next
+section, we use the following code:</p>
+<pre><code class="language-rust ignore">    async fn handle_query(&amp;self, request: Request) -&gt; Response {
+        let schema = Schema::build(
+            QueryRoot {
+                value: *self.state.value.get(),
+            },
+            MutationRoot {
+                runtime: self.runtime.clone(),
+            },
+            EmptySubscription,
+        )
+        .finish();
+        schema.execute(request).await
+    }</code></pre>
+<p>Finally, as before, the following code is needed to incorporate the ABI
+definitions into your <code>Service</code> implementation:</p>
+<pre><code class="language-rust ignore">impl WithServiceAbi for CounterService {
+    type Abi = counter::CounterAbi;
+}</code></pre>
+<h2 id="adding-graphql-compatibility"><a class="header" href="#adding-graphql-compatibility">Adding GraphQL compatibility</a></h2>
+<p>Finally, we want our application to have GraphQL compatibility. To achieve this
+we need a <code>QueryRoot</code> to respond to queries and a <code>MutationRoot</code> for creating
+serialized <code>Operation</code> values that can be placed in blocks.</p>
+<p>In the <code>QueryRoot</code>, we only create a single <code>value</code> query that returns the
+counter's value:</p>
+<pre><code class="language-rust ignore">struct QueryRoot {
+    value: u64,
+}
+
+#[Object]
+impl QueryRoot {
+    async fn value(&amp;self) -&gt; &amp;u64 {
+        &amp;self.value
+    }
+}</code></pre>
+<p>In the <code>MutationRoot</code>, we only create one <code>increment</code> method that returns a
+serialized operation to increment the counter by the provided <code>value</code>:</p>
+<pre><code class="language-rust ignore">struct MutationRoot {
+    runtime: Arc&lt;ServiceRuntime&lt;CounterService&gt;&gt;,
+}
+
+#[Object]
+impl MutationRoot {
+    async fn increment(&amp;self, value: u64) -&gt; [u8; 0] {
+        self.runtime.schedule_operation(&amp;value);
+        []
+    }
+}</code></pre>
+<p>We haven't included the imports in the above code. If you want the full source
+code and associated tests check out the <a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/counter/src/service.rs">examples
+section</a> on
+GitHub.</p>
+<h2 id="references-2"><a class="header" href="#references-2">References</a></h2>
+<ul>
+<li>
+<p>The full trait definition of <code>Service</code> can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/linera-sdk/src/lib.rs">here</a>.</p>
+</li>
+<li>
+<p>The full <code>Counter</code> example application can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/counter">here</a>.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="deploying-the-application"><a class="header" href="#deploying-the-application">Deploying the Application</a></h1>
+<p>The first step to deploy your application is to configure a wallet. This will
+determine where the application will be deployed: either to a local net or to
+the public deployment (i.e. a devnet or a testnet).</p>
+<h2 id="local-network"><a class="header" href="#local-network">Local network</a></h2>
+<p>To configure the local network, follow the steps in the
+<a href="developers/backend/../getting_started/hello_linera.html#using-the-initial-test-wallet">Getting Started section</a>.</p>
+<p>Afterwards, the <code>LINERA_WALLET</code> and the <code>LINERA_STORAGE</code> environment variables
+should be set and can be used in the <code>publish-and-create</code> command to deploy the
+application while also specifying:</p>
+<ol>
+<li>The location of the contract bytecode</li>
+<li>The location of the service bytecode</li>
+<li>The JSON encoded initialization arguments</li>
+</ol>
+<pre><code class="language-bash">linera publish-and-create \
+  target/wasm32-unknown-unknown/release/my-counter_{contract,service}.wasm \
+  --json-argument "42"
+</code></pre>
+<h2 id="devnets-and-testnets"><a class="header" href="#devnets-and-testnets">Devnets and Testnets</a></h2>
+<p>To configure the wallet for the current testnet while creating a new microchain,
+the following command can be used:</p>
+<pre><code class="language-bash">linera wallet init --with-new-chain --faucet https://faucet.testnet-babbage.linera.net
+</code></pre>
+<p>The Faucet will provide the new chain with some tokens, which can then be used
+to deploy the application with the <code>publish-and-create</code> command. It requires
+specifying:</p>
+<ol>
+<li>The location of the contract bytecode</li>
+<li>The location of the service bytecode</li>
+<li>The JSON encoded initialization arguments</li>
+</ol>
+<pre><code class="language-bash">linera publish-and-create \
+  target/wasm32-unknown-unknown/release/my-counter_{contract,service}.wasm \
+  --json-argument "42"
+</code></pre>
+<h2 id="interacting-with-the-application"><a class="header" href="#interacting-with-the-application">Interacting with the application</a></h2>
+<p>To interact with the deployed application, a
+<a href="developers/backend/../core_concepts/node_service.html">node service</a> must be used.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cross-chain-messages"><a class="header" href="#cross-chain-messages">Cross-Chain Messages</a></h1>
+<p>On Linera, applications are meant to be multi-chain: They are instantiated on
+every chain where they are used. An application has the same application ID and
+bytecode everywhere, but a separate state on every chain. To coordinate, the
+instances can send <em>cross-chain messages</em> to each other. A message sent by an
+application is always handled by the <em>same</em> application on the target chain: The
+handling code is guaranteed to be the same as the sending code, but the state
+may be different.</p>
+<p>For your application, you can specify any serializable type as the <code>Message</code>
+type in your <code>Contract</code> implementation. To send a message, use the
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/contract/type.ContractRuntime.html"><code>ContractRuntime</code></a>
+made available as an argument to the contract's
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/trait.Contract.html#tymethod.load"><code>Contract::load</code></a>
+constructor. The runtime is usually stored inside the contract object, as we did
+when <a href="developers/backend/./contract.html">writing the contract binary</a>. We can then call
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/contract/type.ContractRuntime.html#prepare_message"><code>ContractRuntime::prepare_message</code></a>
+to start preparing a message, and then <code>send_to</code> to send it to a destination
+chain.</p>
+<pre><code class="language-rust ignore">    self.runtime
+        .prepare_message(message_contents)
+        .send_to(destination_chain_id);</code></pre>
+<p>It is also possible to send a message to a subscription channel, so that the
+message is forwarded to the subscribers of that channel. All that has to be done
+is specify a
+<a href="https://docs.rs/linera-base/latest/linera_base/identifiers/struct.ChannelName.html"><code>ChannelName</code></a>
+as the destination parameter to <code>send_to</code>.</p>
+<p>After block execution in the <em>sending</em> chain, sent messages are placed in the
+<em>target</em> chains' inboxes for processing. There is no guarantee that it will be
+handled: For this to happen, an owner of the target chain needs to include it in
+the <code>incoming_messages</code> in one of their blocks. When that happens, the
+contract's <code>execute_message</code> method gets called on their chain.</p>
+<p>While preparing the message to be sent, it is possible to enable authentication
+forwarding and/or tracking. Authentication forwarding means that the message is
+executed by the receiver with the same authenticated signer as the sender of the
+message, while tracking means that the message is sent back to the sender if the
+receiver rejects it. The example below enables both flags:</p>
+<pre><code class="language-rust ignore">    self.runtime
+        .prepare_message(message_contents)
+        .with_tracking()
+        .with_authentication()
+        .send_to(destination_chain_id);</code></pre>
+<h2 id="example-fungible-token"><a class="header" href="#example-fungible-token">Example: fungible token</a></h2>
+<p>In the <a href="https://github.com/linera-io/linera-protocol/tree/300ba6d6a015d93a837296004e5958f843452248/examples/fungible"><code>fungible</code> example
+application</a>, such a message
+can be the transfer of tokens from one chain to another. If the sender includes
+a <code>Transfer</code> operation on their chain, it decreases their account balance and
+sends a <code>Credit</code> message to the recipient's chain:</p>
+<pre><code class="language-rust ignore">async fn execute_operation(&amp;mut self, operation: Self::Operation) -&gt; Self::Response {
+        match operation {
+            Operation::Transfer {
+                owner,
+                amount,
+                target_account,
+            } =&gt; {
+                self.runtime
+                    .check_account_permission(owner)
+                    .expect("Permission for Transfer operation");
+                self.state.debit(owner, amount).await;
+                self.finish_transfer_to_account(amount, target_account, owner)
+                    .await;
+                FungibleResponse::Ok
+            }
+            // ...
+        }
+}</code></pre>
+<pre><code class="language-rust ignore">    /// Executes the final step of a transfer where the tokens are sent to the destination.
+    async fn finish_transfer_to_account(
+        &amp;mut self,
+        amount: Amount,
+        target_account: Account,
+        source: AccountOwner,
+    ) {
+        if target_account.chain_id == self.runtime.chain_id() {
+            self.state.credit(target_account.owner, amount).await;
+        } else {
+            let message = Message::Credit {
+                target: target_account.owner,
+                amount,
+                source,
+            };
+            self.runtime
+                .prepare_message(message)
+                .with_authentication()
+                .with_tracking()
+                .send_to(target_account.chain_id);
+        }
+    }</code></pre>
+<p>On the recipient's chain, <code>execute_message</code> is called, which increases their
+account balance.</p>
+<pre><code class="language-rust ignore">    async fn execute_message(&amp;mut self, message: Message) {
+        match message {
+            Message::Credit {
+                amount,
+                target,
+                source,
+            } =&gt; {
+                let is_bouncing = self
+                    .runtime
+                    .message_is_bouncing()
+                    .expect("Delivery status is available when executing a message");
+                let receiver = if is_bouncing { source } else { target };
+                self.state.credit(receiver, amount).await;
+            }
+            // ...
+        }
+    }</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="calling-other-applications"><a class="header" href="#calling-other-applications">Calling other Applications</a></h1>
+<p>We have seen that cross-chain messages sent by an application on one chain are
+always handled by the <em>same</em> application on the target chain.</p>
+<p>This section is about calling other applications using <em>cross-application
+calls</em>.</p>
+<p>Such calls happen on the same chain and are made with the helper method
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/contract/type.ContractRuntime.html#call_application"><code>ContractRuntime::call_application</code></a>:</p>
+<pre><code class="language-rust ignore">    pub fn call_application&lt;A: ContractAbi + Send&gt;(
+        &amp;mut self,
+        authenticated: bool,
+        application: ApplicationId&lt;A&gt;,
+        call: &amp;A::Operation,
+    ) -&gt; A::Response</code></pre>
+<p>The <code>authenticated</code> argument specifies whether the callee is allowed to perform
+actions that require authentication either</p>
+<ul>
+<li>on behalf of the signer of the original block that caused this call, or</li>
+<li>on behalf of the calling application.</li>
+</ul>
+<p>The <code>application</code> argument is the callee's application ID, and <code>A</code> is the
+callee's ABI.</p>
+<p>The <code>call</code> argument is the operation requested by the application call.</p>
+<h2 id="example-crowd-funding"><a class="header" href="#example-crowd-funding">Example: crowd-funding</a></h2>
+<p>The <code>crowd-funding</code> example application allows the application creator to launch
+a campaign with a funding target. That target can be an amount specified in any
+type of token based on the <code>fungible</code> application. Others can then pledge tokens
+of that type to the campaign, and if the target is not reached by the deadline,
+they are refunded.</p>
+<p>If Alice used the <code>fungible</code> example to create a Pugecoin application (with an
+impressionable pug as its mascot), then Bob can create a <code>crowd-funding</code>
+application, use Pugecoin's application ID as <code>CrowdFundingAbi::Parameters</code>, and
+specify in <code>CrowdFundingAbi::InstantiationArgument</code> that his campaign will run
+for one week and has a target of 1000 Pugecoins.</p>
+<p>Now let's say Carol wants to pledge 10 Pugecoin tokens to Bob's campaign. She
+can make her pledge by running the <code>linera service</code> and making a query to Bob's
+application:</p>
+<pre><code class="language-json">mutation { pledge(owner: "User:841…6c0", amount: "10") }
+</code></pre>
+<p>This will add a block to Carol's chain containing the pledge operation that gets
+handled by <code>CrowdFunding::execute_operation</code>, resulting in one cross-application
+call and two cross-chain messages:</p>
+<p>First <code>CrowdFunding::execute_operation</code> calls the <code>fungible</code> application on
+Carol's chain to transfer 10 tokens to Carol's account on Bob's chain:</p>
+<pre><code class="language-rust ignore">// ...
+let call = fungible::Operation::Transfer {
+    owner,
+    amount,
+    target_account,
+};
+// ...
+self.runtime
+    .call_application(/* authenticated by owner */ true, fungible_id, &amp;call);</code></pre>
+<p>This causes <code>Fungible::execute_operation</code> to be run, which will create a
+cross-chain message sending the amount 10 to the Pugecoin application instance
+on Bob's chain.</p>
+<p>After the cross-application call returns, <code>CrowdFunding::execute_operation</code>
+continues to create another cross-chain message
+<code>crowd_funding::Message::PledgeWithAccount</code>, which informs the crowd-funding
+application on Bob's chain that the 10 tokens are meant for the campaign.</p>
+<p>When Bob now adds a block to his chain that handles the two incoming messages,
+first <code>Fungible::execute_message</code> gets executed, and then
+<code>CrowdFunding::execute_message</code>. The latter makes another cross-application call
+to transfer the 10 tokens from Carol's account to the crowd-funding
+application's account (both on Bob's chain). That is successful because Carol
+does now have 10 tokens on this chain and she authenticated the transfer
+indirectly by signing her block. The crowd-funding application now makes a note
+in its application state on Bob's chain that Carol has pledged 10 Pugecoin
+tokens.</p>
+<h1 id="references-3"><a class="header" href="#references-3">References</a></h1>
+<p>For the complete code, please take a look at the
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/crowd-funding/src/contract.rs"><code>crowd-funding</code></a>
+and the
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/fungible/src/contract.rs"><code>fungible</code></a>
+application contracts in the <code>examples</code> folder in <code>linera-protocol</code>.</p>
+<p>The implementation of the Runtime made available to contracts is defined in
+<a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/linera-sdk/src/contract/runtime.rs">this file</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-data-blobs"><a class="header" href="#using-data-blobs">Using Data Blobs</a></h1>
+<p>Some applications may want to use static assets, like images or other data: e.g.
+the <code>non-fungible</code> example application implements NFTs, and each NFT has an
+associated image.</p>
+<p>Data blobs are pieces of binary data that, once published on <em>any</em> chain, can be
+used on <em>all</em> chains. What format they are in and what they are used for is
+determined by the application(s) that read(s) them.</p>
+<p>You can use the <code>linera publish-data-blob</code> command to publish the contents of a
+file, as an operation in a block on one of your chains. This will print the ID
+of the new blob, including its hash. Alternatively, you can run <code>linera service</code>
+and use the <code>publishDataBlob</code> GraphQL mutation.</p>
+<p>Applications can now use <code>runtime.read_data_blob(blob_hash)</code> to read the blob.
+This works on any chain, not only the one that published it. The first time your
+client executes a block reading a blob, it will download the blob from the
+validators if it doesn't already have it locally.</p>
+<p>In the case of the NFT app, it is only the service, not the contract, that
+actually uses the blob data to display it as an image in the frontend. But we
+still want to make sure that the user has the image locally as soon as they
+receive an NFT, even if they don't view it yet. This can be achieved by calling
+<code>runtime.assert_data_blob_exists(blob_hash)</code> in the contract: It will make sure
+the data is available, without actually loading it.</p>
+<p>For the complete code please take a look at the <a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/non-fungible/src/contract.rs"><code>non-fungible</code>
+contract</a>
+and <a href="https://github.com/linera-io/linera-protocol/blob/300ba6d6a015d93a837296004e5958f843452248/examples/non-fungible/src/service.rs">service</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="printing-logs-from-an-application"><a class="header" href="#printing-logs-from-an-application">Printing Logs from an Application</a></h1>
+<p>Applications can use the <a href="https://crates.io/crates/log"><code>log</code> crate</a> to print
+log messages with different levels of importance. Log messages are useful during
+development, but they may also be useful for end users. By default the
+<code>linera service</code> command will log the messages from an application if they are
+of the "info" importance level or higher (briefly, <code>log::info!</code>, <code>log::warn!</code>
+and <code>log::error!</code>).</p>
+<p>During development it is often useful to log messages of lower importance (such
+as <code>log::debug!</code> and <code>log::trace!</code>). To enable them, the <code>RUST_LOG</code> environment
+variable must be set before running <code>linera service</code>. The example below enables
+trace level messages from applications and enables warning level messages from
+other parts of the <code>linera</code> binary:</p>
+<pre><code class="language-ignore">export RUST_LOG="warn,linera_execution::wasm=trace"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-tests"><a class="header" href="#writing-tests">Writing Tests</a></h1>
+<p>Linera applications can be tested using normal Rust unit tests or integration
+tests. Unit tests use a mock runtime for execution, so it's useful for testing
+the application as if it were running by itself on a single chain. Integration
+tests use a simulated validator for testing. This allows creating chains and
+adding blocks to them in order to test interactions between multiple microchains
+and multiple applications.</p>
+<p>Applications should consider having both types of tests. Unit tests should be
+used to focus on the application's internals and core functionality. Integration
+tests should be used to test how the application behaves on a more complex
+environment that's closer to the real network. Both types of test are running in
+native Rust.</p>
+<blockquote>
+<p>For Rust tests, the <code>cargo test</code> command can be used to run both the unit and
+integration tests.</p>
+</blockquote>
+<h2 id="unit-tests"><a class="header" href="#unit-tests">Unit tests</a></h2>
+<p>Unit tests are written beside the application's source code (i.e., inside the
+<code>src</code> directory of the project). The main purpose of a unit test is to test
+parts of the application in an isolated environment. Anything that's external is
+usually mocked. When the <code>linera-sdk</code> is compiled with the <code>test</code> feature
+enabled, the <code>ContractRuntime</code> and <code>SystemRuntime</code> types are actually mock
+runtimes, and can be configured to return specific values for different tests.</p>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>A simple unit test is shown below, which tests if the method <code>execute_operation</code>
+method changes the application state of the <code>Counter</code> application.</p>
+<pre><code class="language-rust ignore">    #[test]
+    fn operation() {
+        let runtime = ContractRuntime::new().with_application_parameters(());
+        let state = CounterState::load(runtime.root_view_storage_context())
+            .blocking_wait()
+            .expect("Failed to read from mock key value store");
+        let mut counter = CounterContract { state, runtime };
+
+        let initial_value = 72_u64;
+        counter
+            .instantiate(initial_value)
+            .now_or_never()
+            .expect("Initialization of counter state should not await anything");
+
+        let increment = 42_308_u64;
+        let response = counter
+            .execute_operation(increment)
+            .now_or_never()
+            .expect("Execution of counter operation should not await anything");
+
+        let expected_value = initial_value + increment;
+
+        assert_eq!(response, expected_value);
+        assert_eq!(*counter.state.value.get(), initial_value + increment);
+    }</code></pre>
+<h2 id="integration-tests"><a class="header" href="#integration-tests">Integration tests</a></h2>
+<p>Integration tests are usually written separately from the application's source
+code (i.e., inside a <code>tests</code> directory that's beside the <code>src</code> directory).</p>
+<p>Integration tests use the helper types from <code>linera_sdk::test</code> to set up a
+simulated Linera network, and publish blocks to microchains in order to execute
+the application.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<p>A simple integration test that execution a block containing an operation for the
+<code>Counter</code> application is shown below.</p>
+<pre><code class="language-rust ignore">#[tokio::test(flavor = "multi_thread")]
+async fn single_chain_test() {
+    let (validator, module_id) =
+        TestValidator::with_current_module::&lt;counter::CounterAbi, (), u64&gt;().await;
+    let mut chain = validator.new_chain().await;
+
+    let initial_state = 42u64;
+    let application_id = chain
+        .create_application(module_id, (), initial_state, vec![])
+        .await;
+
+    let increment = 15u64;
+    chain
+        .add_block(|block| {
+            block.with_operation(application_id, increment);
+        })
+        .await;
+
+    let final_value = initial_state + increment;
+    let QueryOutcome { response, .. } =
+        chain.graphql_query(application_id, "query { value }").await;
+    let state_value = response["value"].as_u64().expect("Failed to get the u64");
+    assert_eq!(state_value, final_value);
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-linera-application-frontends"><a class="header" href="#writing-linera-application-frontends">Writing Linera application frontends</a></h1>
+<p>Linera comes with a Web client library that supports calling applications using
+a JavaScript API directly inside Web pages.</p>
+<p>After you complete this section, you'll know how to build interactive frontends
+for Linera applications, taking advantage of Linera's push notifications to
+implement realtime reactivity.</p>
+<p>We're going to be building a frontend for the <code>counter</code> example we covered in
+<a href="developers/backend.html">Writing Application Backends</a>, so make sure to either complete that
+first or deploy the completed application from the <code>linera-protocol</code> <code>examples</code>
+directory and take a note of the resulting application ID.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="frontend-architecture-overview"><a class="header" href="#frontend-architecture-overview">Frontend Architecture Overview</a></h1>
+<p>The Linera client library is written in Rust. To make it available to Web
+applications, we first compile it to WebAssembly, then wrap it with some
+JavaScript convenience APIs using
+<a href="https://github.com/rustwasm/wasm-bindgen"><code>wasm-bindgen</code></a>. This wrapper will
+first download the client WebAssembly blob, and then forward calls to it, doing
+marshalling as necessary.</p>
+<p>In addition, on the Web some system APIs are provided in the browser as
+JavaScript APIs, so making system calls for these is replaced by FFI calls to
+the equivalent browser APIs. Notably:</p>
+<ul>
+<li>to get the current date/time, we use the JavaScript
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now"><code>Date::now</code></a>
+API</li>
+<li>as our source of cryptographic randomness, we use the
+<a href="https://www.w3.org/TR/WebCryptoAPI/#Crypto-method-getRandomValues">Web Crypto API</a></li>
+<li><a href="https://tokio.rs/">Tokio</a> is replaced by JavaScript promises on the browser
+event loop</li>
+<li>communication with validators over gRPC is replaced with
+<a href="https://grpc.io/docs/platforms/web/basics/">gRPC-Web</a> over the browser
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"><code>fetch</code> API</a></li>
+<li>filesystem access is replaced with
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</a></li>
+<li>the client is run single-threaded, except for bytecode execution, which uses
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a></li>
+</ul>
+<p>The architecture for a dApp frontend with the client library embedded can be
+summarized as follows:</p>
+<pre class="mermaid">graph TD
+
+classDef empty fill:none,stroke:none
+
+subgraph &quot;@linera/client (Rust)&quot;
+	linera-web-client[&quot;linera-web-client&quot;]
+	  --&gt; linera-protocol[&quot;linera-protocol&quot;]
+end
+
+subgraph &quot;Browser APIs&quot;
+	linera-protocol --&gt; web-workers-api[&quot;Web Worker API&quot;]
+  linera-protocol --&gt; wasm-api[&quot;WASM API&quot;]
+  linera-protocol --&gt; fetch-api[&quot;Fetch API&quot;]
+  linera-protocol --&gt; crypto-api[&quot;Crypto API&quot;]
+  browser-apis[&quot;. . .&quot;]:::empty
+end
+
+fetch-api &lt;--&gt; network[&quot;Linera network&quot;]@{shape: &quot;lean-r&quot;}
+
+subgraph &quot;Hosted dApp (JS)&quot;
+  hosted-frontend[&quot;Frontend&quot;] --&gt; linera-web-client
+end
+</pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="setting-up-the-frontend-development-environment"><a class="header" href="#setting-up-the-frontend-development-environment">Setting up the Frontend Development Environment</a></h1>
+<h2 id="supported-browsers"><a class="header" href="#supported-browsers">Supported browsers</a></h2>
+<p>The Linera client library is supported by most mainstream browsers at the time
+of writing (Baseline 2023). It does make use of some fairly modern features, so
+if your browser version is too old you may struggle to follow this tutorial.
+Specifically, your browser should support:</p>
+<ul>
+<li><a href="https://caniuse.com/import-maps">import maps</a></li>
+<li><a href="https://caniuse.com/sharedarraybuffer"><code>SharedArrayBuffer</code></a></li>
+<li><a href="https://caniuse.com/wasm-threads">WebAssembly threading primitives</a></li>
+<li><a href="https://caniuse.com/mdn-javascript_operators_await_top_level">top-level <code>await</code></a>
+— this will be used for brevity in the tutorial, but is easy to factor out if
+your browser doesn't support it</li>
+</ul>
+<h2 id="creating-a-basic-html-page"><a class="header" href="#creating-a-basic-html-page">Creating a basic HTML page</a></h2>
+<p>Let's start by creating a simple HTML UI. This page won't connect to Linera yet,
+but we can use it as scaffolding to get our development environment set up.
+We'll call this page <code>index.html</code>, and it will be the only file we need to edit
+to build our frontend.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;Counter&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Chain: &lt;span id="chain-id"&gt;requesting chain…&lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;Clicks: &lt;span id="count"&gt;0&lt;/span&gt;&lt;/p&gt;
+    &lt;button id="increment"&gt;Click me!&lt;/button&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="serving-your-frontend"><a class="header" href="#serving-your-frontend">Serving your frontend</a></h2>
+<p>In order to use the JavaScript client API, we will need a Web server. Since we
+use a
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer"><code>SharedArrayBuffer</code></a>
+to share memory between WebAssembly threads, running your frontend from disk
+using a <code>file://</code> URI will not work, as <code>SharedArrayBuffer</code> requires
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated">cross-origin isolation</a>
+for security.</p>
+<p>In this tutorial we'll be using
+<a href="https://github.com/http-party/http-server"><code>http-server</code></a>, but any server will
+do so long as it can set the <code>Cross-Origin-Opener-Policy</code> and
+<code>Cross-Origin-Embedder-Policy</code> headers.</p>
+<p>To use <code>http-server</code>, first ensure you have Node.js installed. On Ubuntu, this
+can be accomplished with:</p>
+<pre><code class="language-shellsession">sudo apt install nodejs
+</code></pre>
+<p>Then, the command</p>
+<pre><code class="language-shellsession">npx http-party/http-server \
+  --header Cross-Origin-Embedder-Policy:require-corp \
+  --header Cross-Origin-Opener-Policy:same-origin
+</code></pre>
+<p>can be used to serve our HTML page on <code>localhost</code>.</p>
+<div id="admonition-info" class="admonition admonish-info" role="note" aria-labelledby="admonition-info-title">
+<div class="admonition-title">
+<div id="admonition-info-title">
+<p>Info</p>
+</div>
+<a class="admonition-anchor-link" href="developers/frontend/setup.html#admonition-info"></a>
+</div>
+<div>
+<p>Note that we use <code>http-party/http-server</code> here to use <code>http-server</code>
+from GitHub.  Writing just <code>http-server</code> will pull the version from
+npm, which at the time of writing is very old and doesn't support
+custom headers.</p>
+</div>
+</div>
+<h2 id="getting-the-client-library"><a class="header" href="#getting-the-client-library">Getting the client library</a></h2>
+<p>The entire Linera client, WebAssembly and all, is published to the Node package
+repository as <a href="https://www.npmjs.com/package/@linera/client"><code>@linera/client</code></a>.
+We'll include it into our <code>node_modules</code> with:</p>
+<pre><code class="language-shellsession">npm install @linera/client@0.14.0
+</code></pre>
+<div id="admonition-a-note-on-bundlers" class="admonition admonish-warning" role="note" aria-labelledby="admonition-a-note-on-bundlers-title">
+<div class="admonition-title">
+<div id="admonition-a-note-on-bundlers-title">
+<p>A note on bundlers</p>
+</div>
+<a class="admonition-anchor-link" href="developers/frontend/setup.html#admonition-a-note-on-bundlers"></a>
+</div>
+<div>
+<p>We're serving our <code>node_modules</code> here, so no bundling step is
+required.  However, if you do choose to bundle your frontend, it is
+important that both the Web worker entry point and the
+<code>@linera/client</code> library itself remain in separate files, with their
+signatures intact, in order for the Web worker to be able to refer to
+them.  For example, if using Vite, make sure to define an extra
+entrypoint for <code>@linera/client</code>, preserve its signature, and exclude
+it from dependency optimization:</p>
+<pre><code class="language-typescript">export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        index: 'index.html',
+        linera: '@linera/client',
+      },
+      preserveEntrySignatures: 'strict',
+    },
+  },
+  optimizeDeps: {
+    exclude: [
+      '@linera/client',
+    ],
+  },
+})
+</code></pre>
+</div>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="interacting-with-linera"><a class="header" href="#interacting-with-linera">Interacting with Linera</a></h1>
+<p>Add a <code>&lt;script type="module"&gt;</code> to your page. The location of this module doesn't
+matter: module scripts are deferred until after page load. This is where we will
+write all the JavaScript necessary to interact with Linera.</p>
+<h2 id="importing-the-linera-client-library"><a class="header" href="#importing-the-linera-client-library">Importing the Linera client library</a></h2>
+<p>To add the Linera client library to your page, put the following import map into
+the <code>&lt;head&gt;</code> of your HTML:</p>
+<pre><code class="language-html">&lt;script type="importmap"&gt;
+  {
+    "imports": {
+      "@linera/client": "./node_modules/@linera/client/dist/linera_web.js"
+    }
+  }
+&lt;/script&gt;
+</code></pre>
+<p>Now the module <code>@linera/client</code> is available for import in your module:</p>
+<pre><code class="language-html">&lt;script type="module"&gt;
+  import * as linera from '@linera/client';
+&lt;/script&gt;
+</code></pre>
+<h2 id="referring-to-the-counter-app"><a class="header" href="#referring-to-the-counter-app">Referring to the counter app</a></h2>
+<p>We'll need the application ID of the counter app deployed on our network of
+choice. This tutorial uses Testnet Babbage, and the following application ID
+refers to a counter app published there:</p>
+<pre><code class="language-javascript">const COUNTER_APP_ID =
+  '2b1a0df8868206a4b7d6c2fdda911e4355d6c0115b896d4947ef8e535ee3c6b8';
+</code></pre>
+<p>If you wish to use a different network or deploy your own backend, you may need
+to change the application ID. So long as it points to an application satisfying
+the counter ABI, the rest of this tutorial will work without modification.</p>
+<h2 id="initialization"><a class="header" href="#initialization">Initialization</a></h2>
+<p>The first thing we need to do to interact with the Linera client library is
+initialize it. This will download the WebAssembly binary, create a new memory
+for it, and initialize the memory.</p>
+<pre><code class="language-javascript">await linera.default();
+</code></pre>
+<h2 id="getting-a-wallet"><a class="header" href="#getting-a-wallet">Getting a wallet</a></h2>
+<p>If you have a wallet file available, you can use the <code>linera.Wallet.fromJson</code>
+function to create a <code>linera.Wallet</code> from it. However, for the purposes of the
+tutorial, we will connect to the Testnet Babbage faucet and create a new wallet
+with a fresh chain owning some tokens. We will also update our <code>#chain-id</code>
+element to let the user know the ID of their new chain.</p>
+<pre><code class="language-javascript">const faucet = await new linera.Faucet(
+  'https://faucet.testnet-babbage.linera.net',
+);
+const wallet = await faucet.createWallet();
+const client = await new linera.Client(wallet);
+document.getElementById('chain-id').innerText = await faucet.claimChain(client);
+</code></pre>
+<h2 id="communicating-with-the-application"><a class="header" href="#communicating-with-the-application">Communicating with the application</a></h2>
+<p>Calling the method <code>client.application(applicationId)</code> will get you an object
+representing the application backend.</p>
+<pre><code class="language-javascript">const backend = await client.frontend().application(COUNTER_APP_ID);
+</code></pre>
+<p>You can query the backend application using the <code>query</code> method, which takes an
+arbitrary string that will be passed to the backend as a request, and returns a
+<code>Promise</code> of the response. We can use this to update our <code>#count</code> element with
+the current value of the counter.</p>
+<pre><code class="language-javascript">async function updateCount() {
+  const response = await backend.query('{ "query": "query { value }" }');
+  document.getElementById('count').innerText = JSON.parse(response).data.value;
+}
+
+updateCount();
+</code></pre>
+<p>The counter application uses GraphQL as its request language. By convention,
+Linera applications accept GraphQL as strings of JSON in the
+<a href="https://www.apollographql.com/docs/apollo-server/v2/requests">Apollo Server POST format</a>,
+but your application is free to accept whatever format it wants.</p>
+<p>GraphQL <code>query</code> operations can be used to inspect the state of the application,
+while <code>mutation</code> operations cause the client to propose new blocks with the
+result of the requested modification. Let's attach an event handler to our
+button that proposes an increment to the counter value.</p>
+<pre><code class="language-javascript">document.getElementById('increment').addEventListener('click', () =&gt; {
+  backend.query('{ "query": "mutation { increment(value: 1) }" }');
+});
+</code></pre>
+<h2 id="notifications-and-reactivity"><a class="header" href="#notifications-and-reactivity">Notifications and reactivity</a></h2>
+<p>If you click the button, the value of the counter will go up, but the UI element
+currently won't change to reflect it. Let's fix that.</p>
+<p>The <code>Client</code> object also supports adding a callback for notifications. This is
+key to Linera's reactivity: if something happens to one of a client's chains,
+this callback will immediately be called with a notification object containing
+information about the event.</p>
+<p>In this case the only updates we're interested in are new blocks, which imply
+that the counter value has changed, so whenever we see a new block let's update
+the counter.</p>
+<pre><code class="language-javascript">client.onNotification(notification =&gt; {
+  if (notification.reason.NewBlock) updateCount();
+});
+</code></pre>
+<p>We're the sole owner of this chain, so the value query is purely local: nobody
+could have updated the chain state but us. In the general case, though, other
+users on other clients could update the chain with new blocks or by sending it
+messages, and we'd get immediately notified in just the same way.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>That's it! In a few lines of code we've implemented an application frontend that
+communicates with the Linera testnet and allows bidirectional communication with
+an application, including realtime updates when the chain state changes.</p>
+<p>A somewhat fleshed-out version of the code from this tutorial can be found in
+the <code>examples/hosted-counter</code> subdirectory of the
+<a href="https://github.com/linera-io/linera-web"><code>linera-web</code> repository</a>, next to some
+more complicated examples. Alternatively, you can
+<a href="https://demos.linera.net/hosted/counter">try it out online</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-topics"><a class="header" href="#advanced-topics">Advanced Topics</a></h1>
+<p>In this section, we present additional topics related to the Linera protocol.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contract-finalization"><a class="header" href="#contract-finalization">Contract Finalization</a></h1>
+<p>When a transaction finishes executing successfully, there's a final step where
+all loaded application contracts have their <code>Contract::store</code> implementation
+called. This can be seen to be similar to executing a destructor. In that sense,
+applications may want to perform some final operations after execution finished.
+While finalizing, contracts may send messages, read and write to the state, but
+are not allowed to call other applications, because they are all also in the
+process of finalizing.</p>
+<p>While finalizing, contracts can force the transaction to fail by panicking. The
+block is then rejected, even if the entire transaction's operation had succeeded
+before the application's <code>Contract::store</code> was called. This allows a contract to
+reject transactions if other applications don't follow any required constraints
+it establishes after it responds to a cross-application call.</p>
+<p>As an example, a contract that executes a cross-application call with
+<code>Operation::StartSession</code> may require the same caller to perform another
+cross-application call with <code>Operation::EndSession</code> before the transaction ends.</p>
+<pre><code class="language-rust edition2021"><span class="boring">extern crate serde;
+</span><span class="boring">extern crate linera_sdk;
+</span><span class="boring">use serde::{Deserialize, Serialize};
+</span><span class="boring">use linera_sdk::linera_base_types::*;
+</span><span class="boring">use linera_sdk::*;
+</span><span class="boring">use linera_sdk::abi::*;
+</span><span class="boring">use std::collections::HashSet;
+</span><span class="boring">use linera_sdk::views::{linera_views, RegisterView, RootView, ViewStorageContext};
+</span><span class="boring">use crate::linera_sdk::views::View as _;
+</span><span class="boring">use linera_sdk::linera_base_types::ApplicationId;
+</span>
+#[derive(RootView)]
+#[view(context = "ViewStorageContext")]
+pub struct MyState {
+    pub value: RegisterView&lt;u64&gt;,
+    // ...
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum Operation { StartSession, EndSession }
+
+pub struct MyAbi;
+
+impl ContractAbi for MyAbi {
+    type Operation = Operation;
+    type Response = ();
+}
+
+pub struct MyContract {
+    state: MyState,
+    runtime: ContractRuntime&lt;Self&gt;,
+    active_sessions: HashSet&lt;ApplicationId&gt;,
+}
+
+impl WithContractAbi for MyContract {
+    type Abi = MyAbi;
+}
+
+impl Contract for MyContract {
+    type Message = ();
+    type InstantiationArgument = ();
+    type Parameters = ();
+    type EventValue = ();
+
+    async fn load(runtime: ContractRuntime&lt;Self&gt;) -&gt; Self {
+        let state = MyState::load(runtime.root_view_storage_context())
+            .await
+            .expect("Failed to load state");
+
+        MyContract {
+            state,
+            runtime,
+            active_sessions: HashSet::new(),
+        }
+    }
+
+    async fn instantiate(&amp;mut self, (): Self::InstantiationArgument) {}
+
+    async fn execute_operation(&amp;mut self, operation: Self::Operation) -&gt; Self::Response {
+        let caller_id = self.runtime
+            .authenticated_caller_id()
+            .expect("Missing caller ID");
+
+        match operation {
+            Operation::StartSession =&gt; {
+                assert!(
+                    self.active_sessions.insert(caller_id),
+                    "Can't start more than one session for the same caller"
+                );
+            }
+            Operation::EndSession =&gt; {
+                assert!(
+                    self.active_sessions.remove(&amp;caller_id),
+                    "Session was not started"
+                );
+            }
+        }
+    }
+
+    async fn execute_message(&amp;mut self, message: Self::Message) {
+        unreachable!("This example doesn't support messages");
+    }
+
+    async fn store(mut self) {
+        assert!(
+            self.active_sessions.is_empty(),
+            "Some sessions have not ended"
+        );
+
+        self.state.save().await.expect("Failed to save state");
+    }
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="validators"><a class="header" href="#validators">Validators</a></h1>
+<p>Validators run the servers that allow users to download and create blocks. They
+validate, execute and cryptographically certify the blocks of all the chains.</p>
+<blockquote>
+<p>In Linera, every chain is backed by the same set of validators and has the
+same level of security.</p>
+</blockquote>
+<p>The main function of validators is to guarantee the integrity of the
+infrastructure in the sense that:</p>
+<ul>
+<li>
+<p>Each block is valid, i.e. it has the correct format, its operations are
+allowed, the received messages are in the correct order, and e.g. the balance
+was correctly computed.</p>
+</li>
+<li>
+<p>Every message received by one chain was actually sent by another chain.</p>
+</li>
+<li>
+<p>If one block on a particular height is certified, no other block on the same
+height is.</p>
+</li>
+</ul>
+<p>These properties are guaranteed to hold as long as two thirds of the validators
+(weighted by their stake) follow the protocol. In the future, deviating from the
+protocol may cause a validator to be considered malicious and to lose their
+<em>stake</em>.</p>
+<p>Validators also play a role in the liveness of the system by making sure that
+the history of the chains stays available. However, since validators do not
+propose blocks on most chains (see <a href="developers/advanced_topics/block_creation.html">next section</a>), they do
+<em>not</em> guarantee that any particular operation or message will eventually be
+executed on a chain. Instead, chain owners decide whether and when to propose
+new blocks, and which operations and messages to include. The current
+implementation of the Linera client automatically includes all incoming messages
+in new blocks. The operations are the actions the chain owner explicitly adds,
+e.g. transfer.</p>
+<h2 id="architecture-of-a-validator"><a class="header" href="#architecture-of-a-validator">Architecture of a validator</a></h2>
+<p>Since every chain uses the same validators, adding more chains does not require
+adding validators. Instead, it requires each individual validator to scale out
+by adding more computation units, also known as "workers" or "physical shards".</p>
+<p>In the end, a Linera validator resembles a Web2 service made of</p>
+<ul>
+<li>
+<p>a load balancer (aka. ingress/egress), currently implemented by the binary
+<code>linera-proxy</code>,</p>
+</li>
+<li>
+<p>a number of workers, currently implemented by the binary <code>linera-server</code>,</p>
+</li>
+<li>
+<p>a shared database, currently implemented by the abstract interface
+<code>linera-storage</code>.</p>
+</li>
+</ul>
+<pre><code class="language-ignore">Example of Linera network
+
+                    │                                             │
+                    │                                             │
+┌───────────────────┼───────────────────┐     ┌───────────────────┼───────────────────┐
+│ validator 1       │                   │     │ validator N       │                   │
+│             ┌─────┴─────┐             │     │             ┌─────┴─────┐             │
+│             │   load    │             │     │             │   load    │             │
+│       ┌─────┤  balancer ├────┐        │     │       ┌─────┤  balancer ├──────┐      │
+│       │     └───────────┘    │        │     │       │     └─────┬─────┘      │      │
+│       │                      │        │     │       │           │            │      │
+│       │                      │        │     │       │           │            │      │
+│  ┌────┴─────┐           ┌────┴─────┐  │     │  ┌────┴───┐  ┌────┴────┐  ┌────┴───┐  │
+│  │  worker  ├───────────┤  worker  │  │ ... │  │ worker ├──┤  worker ├──┤ worker │  │
+│  │    1     │           │    2     │  │     │  │    1   │  │    2    │  │    3   │  │
+│  └────┬─────┘           └────┬─────┘  │     │  └────┬───┘  └────┬────┘  └────┬───┘  │
+│       │                      │        │     │       │           │            │      │
+│       │                      │        │     │       │           │            │      │
+│       │     ┌───────────┐    │        │     │       │     ┌─────┴─────┐      │      │
+│       └─────┤  shared   ├────┘        │     │       └─────┤  shared   ├──────┘      │
+│             │ database  │             │     │             │ database  │             │
+│             └───────────┘             │     │             └───────────┘             │
+└───────────────────────────────────────┘     └───────────────────────────────────────┘
+
+</code></pre>
+<p>Inside a validator, components communicate using the internal network of the
+validator. Notably, workers use direct Remote Procedure Calls (RPCs) with each
+other to deliver cross-chain messages.</p>
+<p>Note that the number of workers may vary for each validator. Both the load
+balancer and the shared database are represented as a single entity but are
+meant to scale out in production.</p>
+<blockquote>
+<p>For local testing during development, we currently use a single worker and a
+testing in-memory service as a shared database.</p>
+</blockquote>
+<!--
+## Configuring Networks, Workers, and Proxies
+
+In [a previous section](../getting_started/hello_linera.md), we used the
+`linera net up` command to start a local network. This should be sufficient for
+most use cases when you're running a local network.
+
+```bash
+linera net up
+```
+
+However, it is possible to customize and configure the parameters of the
+network.
+
+To do this, you need the `linera-protocol` repository and the
+`./scripts/run_local.sh` script.
+
+`run_local.sh` uses the `validator_n.toml` file from the `configuration/`
+directory to configure validator number `n`.
+
+```bash
+linera-server generate --validators configuration/validator_{1,2,3,4}.toml --committee committee.json
+```
+
+generates keys and writes them, together with the options from the TOML files,
+to `server_1.json`, ..., `server_4.json`. It also stores the set of the new
+validators' public keys in `committee.json`.
+
+```bash
+linera --wallet wallet.json --storage rocksdb:linera.db create-genesis-config 10 --genesis genesis.json --initial-funding 10 --committee committee.json
+```
+
+creates a configuration for the initial state of the network, `genesis.json`,
+with 10 chains, each with a balance of 10. It also creates a `wallet.json` for a
+client who owns all those chains and initializes the corresponding local node
+`linera.db`.
+
+To start the newly configured network, each validator `n` must start their
+proxy:
+
+```bash
+linera-proxy server_n.json &
+```
+
+And all shards; for shard `i`:
+
+```bash
+linera-server run --storage rocksdb:server_n_i.db --server server_n.json --shard i --genesis genesis.json &
+```
+
+This will create a separate database file `server_n_i.db` for each shard. In a
+production network, these would be running on different machines.
+
+## Changing the Set of Validators
+
+If a new validator wants to start participating, or an old one wants to leave,
+all chains must be updated.
+
+The system has one designated _admin chain_, where the validators can join or
+leave, and where new _epochs_ are defined. During every epoch, the set of
+validators is fixed. If you own the admin chain, you can use the `set-validator`
+and `remove-validator` commands to start a new epoch with a modified set of
+validators:
+
+```bash
+linera --wallet wallet.json set-validator --name 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4 --address 127.0.0.1:9100 --votes 3
+linera --wallet wallet.json remove-validator --name f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
+```
+
+Chain owners must then create a block that receives the `SetCommittees` message
+from the admin chain, and have it certified by the old validators. Only the
+_next_ block in their chain will be certified by the new validator set!
+
+The _admin chain_ is currently managed by a single user. In the future, it will
+be a _public chain_ (i.e. managed by validators). We anticipate that Linera
+epochs will change once per day (or less) and that several subsequent epochs
+will overlap so that chain owners have enough time to migrate their chains.
+(Chain migration may also be delegated to third parties. See
+[next section](block_creation.html).)
+
+-->
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-new-blocks"><a class="header" href="#creating-new-blocks">Creating New Blocks</a></h1>
+<blockquote>
+<p>In Linera, the responsibility of proposing blocks is separate from the task of
+validating blocks.</p>
+</blockquote>
+<p>While all chains are validated in the same way, the Linera protocol defines
+several types of chains, depending on how new blocks are produced.</p>
+<ul>
+<li>
+<p>The simplest and lowest-latency type of chain is called <em>single-owner</em> chain.</p>
+</li>
+<li>
+<p>Other types of Linera chains not currently supported in the SDK include
+<em>multi-user chains</em> and <em>public chains</em> (see the
+<a href="https://linera.io/whitepaper">whitepaper</a> for more context).</p>
+</li>
+</ul>
+<blockquote>
+<p>For most types of chains (all but <em>public chains</em>), Linera validators do not
+need to exchange messages with each other.</p>
+</blockquote>
+<p>Instead, the wallets (aka. <code>linera</code> clients) of chain owners make the system
+progress by proposing blocks and actively providing any additional required data
+to the validators. For instance, client commands such as <code>transfer</code>,
+<code>publish-bytecode</code>, or <code>open-chain</code> perform multiple steps to append a block
+containing the token transfer, application publishing, or chain creation
+operation:</p>
+<ul>
+<li>
+<p>The Linera client creates a new block containing the desired operation and new
+incoming messages, if there are any. It also contains the most recent block's
+hash to designate its parent. The client sends the new block to all
+validators.</p>
+</li>
+<li>
+<p>The validators validate the block, i.e. check that the block satisfies the
+conditions listed above, and send a cryptographic signature to the client,
+indicating that they vote to append the new block. But only if they have not
+voted for a different block on the same height earlier!</p>
+</li>
+<li>
+<p>The client ideally receives a vote from every validator, but only a quorum of
+votes (say, two thirds) are required: These constitute a "certificate",
+proving that the block was confirmed. The client sends the certificate to
+every validator.</p>
+</li>
+<li>
+<p>The validators "execute" the block: They update their own view of the most
+recent state of the chain by applying all messages and operations, and if it
+generated any cross-chain messages, they send these to the appropriate
+workers.</p>
+</li>
+</ul>
+<p>To guarantee that each incoming message in a block was actually sent by another
+chain, a validator will, in the second step, only <em>vote</em> for a block if it has
+already executed the block that sent it. However, when receiving a valid
+certificate for a block that receives a message it has not seen yet, it will
+accept and <em>execute</em> the block anyway. The certificate is proof that most other
+validators have seen the message, so it must be correct.</p>
+<p>In the case of single-owner chains, clients must be carefully implemented so
+that they never propose multiple blocks at the same height. Otherwise, the chain
+may be stuck: once each of the two conflicting blocks has been signed by enough
+validators, it becomes impossible to collect a quorum of votes for either block.</p>
+<p>In the future, we anticipate that most users will use <em>multi-user chains</em> even
+if they are the only owners of their chains. Multi-user chains have two
+confirmation steps instead of one, but it is not possible to accidentally make a
+chain unextendable. They also allow users to delegate certain administrative
+tasks to third-parties, notably to help with epoch changes (i.e. when the
+validators change if reconfigured).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="applications-that-handle-assets"><a class="header" href="#applications-that-handle-assets">Applications that Handle Assets</a></h1>
+<p>In general, if you send tokens to a chain owned by someone else, you rely on
+them for asset availability: if they don't handle your messages, you don't have
+access to your tokens.</p>
+<p>Fortunately, Linera provides a solution based on temporary chains: if the number
+of parties who want to participate is limited and known in advance, we can:</p>
+<ul>
+<li>make them all chain owners using the <code>linera change-ownership</code> command,</li>
+<li>allow only one application's operations on the chain,</li>
+<li>and allow only that operation to close the chain, using
+<code>linera change-application-permissions</code>.</li>
+</ul>
+<p>Such an application should have a designated operation or message that causes it
+to close the chain: when that operation is executed, it should send back all
+remaining assets, and call the runtime's <code>close_chain</code> method.</p>
+<p>Once the chain is closed, owners can still create blocks to reject messages.
+That way, even assets that are in flight can be returned.</p>
+<p>The
+<a href="https://github.com/linera-io/linera-protocol/tree/main/examples/matching-engine"><code>matching-engine</code> example application</a>
+does this:</p>
+<pre><code class="language-rust ignore">    async fn execute_operation(&amp;mut self, operation: Operation) -&gt; Self::Response {
+        match operation {
+            // ...
+            Operation::CloseChain =&gt; {
+                for order_id in self.state.orders.indices().await.unwrap() {
+                    match self.modify_order(order_id, ModifyAmount::All).await {
+                        Some(transfer) =&gt; self.send_to(transfer),
+                        // Orders with amount zero may have been cleared in an earlier iteration.
+                        None =&gt; continue,
+                    }
+                }
+                self.runtime
+                    .close_chain()
+                    .expect("The application does not have permissions to close the chain.");
+            }
+        }
+    }</code></pre>
+<p>This enables doing atomic swaps using the Matching Engine: if you make a bid,
+you are guaranteed that at any point in time you can get back either the tokens
+you are offering or the tokens you bought.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="experimental-topics"><a class="header" href="#experimental-topics">Experimental Topics</a></h1>
+<p>In this section, we present experimental topics related to the Linera protocol.</p>
+<p>These are still in the works and subject to frequent breaking changes.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="machine-learning-on-linera"><a class="header" href="#machine-learning-on-linera">Machine Learning on Linera</a></h1>
+<p>The Linera application contract / service split allows for securely and
+efficiently running machine learning models on the edge.</p>
+<p>The application's contract retrieves the correct model with all the correctness
+guarantees enforced by the consensus algorithm, while the client performs
+inference off-chain, in the un-metered service. Since the service is running on
+the user's own hardware, it can be implicitly trusted.</p>
+<h2 id="guidelines"><a class="header" href="#guidelines">Guidelines</a></h2>
+<p>The existing examples use the <a href="https://github.com/huggingface/candle"><code>candle</code></a>
+framework by <a href="https://huggingface.co/">Hugging Face</a> as the underlying ML
+framework.</p>
+<p><code>candle</code> is a minimalist ML framework for Rust with a focus on performance and
+usability. It also compiles to Wasm and has great support for Wasm both in and
+outside the browser. Check candle's
+<a href="https://github.com/huggingface/candle/tree/main/candle-wasm-examples">examples</a>
+for inspiration on the types of models which are supported.</p>
+<h3 id="getting-started-1"><a class="header" href="#getting-started-1">Getting started</a></h3>
+<p>To add ML capabilities to your existing Linera project, you'll need to add the
+<code>candle-core</code>, <code>getrandom</code>, <code>rand</code> and <code>tokenizers</code> dependencies to your Linera
+project:</p>
+<pre><code class="language-toml">candle-core = "0.4.1"
+getrandom = { version = "0.2.12", default-features = false, features = ["custom"] }
+rand = "0.8.5"
+</code></pre>
+<p>Optionally, to run Large Language Models, you'll also need the
+<code>candle-transformers</code> and <code>transformers</code> crate:</p>
+<pre><code class="language-toml">candle-transformers = "0.4.1"
+tokenizers = { git = "https://github.com/christos-h/tokenizers", default-features = false, features = ["unstable_wasm"] }
+</code></pre>
+<h3 id="providing-randomness"><a class="header" href="#providing-randomness">Providing randomness</a></h3>
+<p>ML frameworks use random numbers to perform inference. Linera services run in a
+Wasm VM which does not have access to the OS Rng. For this reason, we need to
+manually seed RNG used by <code>candle</code>. We do this by writing a custom <code>getrandom</code>.</p>
+<p>Create a file under <code>src/random.rs</code> and add the following:</p>
+<pre><code class="language-rust ignore">use std::sync::{Mutex, OnceLock};
+
+use rand::{rngs::StdRng, Rng, SeedableRng};
+
+static RNG: OnceLock&lt;Mutex&lt;StdRng&gt;&gt; = OnceLock::new();
+
+fn custom_getrandom(buf: &amp;mut [u8]) -&gt; Result&lt;(), getrandom::Error&gt; {
+    let seed = [0u8; 32];
+    RNG.get_or_init(|| Mutex::new(StdRng::from_seed(seed)))
+        .lock()
+        .expect("failed to get RNG lock")
+        .fill(buf);
+    Ok(())
+}
+
+getrandom::register_custom_getrandom!(custom_getrandom);</code></pre>
+<p>This will enable <code>candle</code> and any other crates which rely on <code>getrandom</code> access
+to a deterministic RNG. If deterministic behaviour is not desired, the System
+API can be used to seed the RNG from a timestamp.</p>
+<h3 id="loading-the-model-into-the-service"><a class="header" href="#loading-the-model-into-the-service">Loading the model into the service</a></h3>
+<p>Models cannot currently be saved on-chain; for more information see the
+<code>Limitations</code> below.</p>
+<p>To perform model inference, the model must be loaded into the service. To do
+this we'll use the <code>fetch_url</code> API when a query is made against the service:</p>
+<pre><code class="language-rust ignore">impl Service for MyService {
+    async fn handle_query(&amp;self, request: Request) -&gt; Response {
+        // do some stuff here
+        let raw_weights = self.runtime.fetch_url("https://my-model-provider.com/model.bin");
+        // do more stuff here
+    }
+}</code></pre>
+<p>This can be served from a local webserver or pulled directly from a model
+provider such as Hugging Face.</p>
+<p>At this point we have the raw bytes which correspond to the models and
+tokenizer. <code>candle</code> supports multiple formats for storing model weights, both
+quantized and not (<code>gguf</code>, <code>ggml</code>, <code>safetensors</code>, etc.).</p>
+<p>Depending on the model format that you're using, <code>candle</code> exposes convenience
+functions to convert the bytes into a typed <code>struct</code> which can then be used to
+perform inference. Below is an example for a non-quantized Llama 2 model:</p>
+<pre><code class="language-rust ignore">    fn load_llama_model(cursor: &amp;mut Cursor&lt;Vec&lt;u8&gt;&gt;) -&gt; Result&lt;(Llama, Cache), candle_core::Error&gt; {
+        let config = llama2_c::Config::from_reader(cursor)?;
+        let weights =
+            llama2_c_weights::TransformerWeights::from_reader(cursor, &amp;config, &amp;Device::Cpu)?;
+        let vb = weights.var_builder(&amp;config, &amp;Device::Cpu)?;
+        let cache = llama2_c::Cache::new(true, &amp;config, vb.pp("rot"))?;
+        let llama = Llama::load(vb, config.clone())?;
+        Ok((llama, cache))
+    }</code></pre>
+<h3 id="inference"><a class="header" href="#inference">Inference</a></h3>
+<p>Performing inference using <code>candle</code> is not a 'one-size-fits-all' process.
+Different models require different logic to perform inference so the specifics
+of how to perform inference are beyond the scope of this document.</p>
+<p>Luckily, there are multiple examples which can be used as guidelines on how to
+perform inference in Wasm:</p>
+<ul>
+<li><a href="https://github.com/linera-io/linera-protocol/tree/main/examples/llm">Llm Stories</a></li>
+<li><a href="https://github.com/linera-io/linera-protocol/tree/main/examples/gen-nft">Generative NFTs</a></li>
+<li><a href="https://github.com/huggingface/candle/tree/main/candle-wasm-examples">Candle Wasm Examples</a></li>
+</ul>
+<h2 id="limitations"><a class="header" href="#limitations">Limitations</a></h2>
+<h3 id="hardware-acceleration"><a class="header" href="#hardware-acceleration">Hardware acceleration</a></h3>
+<p>Although SIMD instructions <em>are</em> supported by the service runtime, general
+purpose GPU hardware acceleration is
+<a href="https://github.com/linera-io/linera-protocol/issues/1931">not currently supported</a>.
+Therefore, performance in local model inference is degraded for larger models.</p>
+<h3 id="on-chain-models"><a class="header" href="#on-chain-models">On-chain models</a></h3>
+<p>Due to block-size constraints, models need to be stored off-chain until the
+introduction of the
+<a href="https://github.com/linera-io/linera-protocol/issues/1981">Blob API</a>. The Blob
+API will enable large binary blobs to be stored on-chain, the correctness and
+availability of which is guaranteed by the validators.</p>
+<h3 id="maximum-model-size"><a class="header" href="#maximum-model-size">Maximum model size</a></h3>
+<p>The maximum size of a model which can be loaded into an application's service is
+currently constrained by:</p>
+<ol>
+<li>The addressable memory of the service's Wasm runtime being 4 GiB.</li>
+<li>Not being able to load models directly to the GPU.</li>
+</ol>
+<p>It is recommended that smaller models (50 MB - 100 MB) are used at current state
+of development.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="devnets"><a class="header" href="#devnets">Devnets</a></h1>
+<p>This section discusses how to deploy developer networks, aka "Devnets", for
+testing and development purposes.</p>
+<p>Devnets always start from a genesis configuration and an empty state. Validator
+nodes are run by the core Linera team. Devnets do not handle real assets.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="running-devnets-with-docker-compose"><a class="header" href="#running-devnets-with-docker-compose">Running devnets with Docker Compose</a></h1>
+<p>In this section, we use Docker Compose to run a simple devnet with a single
+validator.</p>
+<p>Docker Compose is a tool for defining and managing multi-container Docker
+applications. It allows you to describe the services, networks, and volumes of
+your application in a single YAML file (docker-compose.yml). With Docker
+Compose, you can easily start, stop, and manage all the containers in your
+application as a single unit using simple commands like docker-compose up and
+docker-compose down.</p>
+<p>For a more complete setup, consider using Kind as described
+<a href="operators/devnets/kind.html">in the next section</a>.</p>
+<h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
+<p>This section covers everything you need to install to run a Linera network with
+Docker Compose.</p>
+<p>Note: This section has been tested only on Linux.</p>
+<h3 id="docker-compose-requirements"><a class="header" href="#docker-compose-requirements">Docker Compose Requirements</a></h3>
+<p>To install Docker Compose see the
+<a href="https://docs.docker.com/compose/install/">installing Docker Compose</a> section in
+the Docker docs.</p>
+<h3 id="installing-the-linera-toolchain"><a class="header" href="#installing-the-linera-toolchain">Installing the Linera Toolchain</a></h3>
+<p>To install the Linera Toolchain refer to the
+<a href="operators/devnets/../../developers/getting_started/installation.html#installing-from-github">installation section</a>.</p>
+<p>You want to install the toolchain from GitHub, as you'll be using the repository
+to run the Docker Compose validator service.</p>
+<h2 id="running-with-docker-compose"><a class="header" href="#running-with-docker-compose">Running with Docker Compose</a></h2>
+<p>To run a local devnet with Docker Compose, navigate to the root of the
+<code>linera-protocol</code> repository and run:</p>
+<pre><code class="language-bash">cd docker &amp;&amp; ./compose.sh
+</code></pre>
+<p>This will take some time as Docker images are built from the Linera source. When
+the service is ready, a temporary wallet and database are available under the
+<code>docker</code> subdirectory.</p>
+<p>Referencing these variables with the <code>linera</code> binary will enable you to interact
+with the devnet:</p>
+<pre><code class="language-bash">$ linera --wallet wallet.json --storage rocksdb:linera.db sync
+2024-06-07T14:19:32.751359Z  INFO linera: Synchronizing chain information
+2024-06-07T14:19:32.771842Z  INFO linera::client_context: Saved user chain states
+2024-06-07T14:19:32.771850Z  INFO linera: Synchronized chain information in 20 ms
+$ linera --wallet wallet.json --storage rocksdb:linera.db query-balance
+2024-06-07T14:19:36.958149Z  INFO linera: Evaluating the local balance of e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65 by staging execution of known incoming messages
+2024-06-07T14:19:36.959481Z  INFO linera: Balance obtained after 1 ms
+10.
+</code></pre>
+<p>The network is transient, so killing the script will perform a cleanup operation
+destroying wallets, storage and volumes associated with the network.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="running-devnets-with-kind"><a class="header" href="#running-devnets-with-kind">Running devnets with <code>kind</code></a></h1>
+<p>In this section, we use <code>kind</code> to run a full devnet (network of validators)
+locally.</p>
+<p>Kind (Kubernetes in Docker) is a tool for running local Kubernetes clusters
+using Docker container nodes. Kind uses Docker to create a cluster of containers
+that simulate the Kubernetes control plane and worker nodes, allowing developers
+to easily create, manage, and test multi-node clusters on their local machine.</p>
+<h2 id="installation-2"><a class="header" href="#installation-2">Installation</a></h2>
+<p>This section covers everything you need to install to run a Linera network with
+<code>kind.</code></p>
+<h3 id="linera-toolchain-requirements"><a class="header" href="#linera-toolchain-requirements">Linera Toolchain Requirements</a></h3>
+<p>The operating systems currently supported by the Linera toolchain can be
+summarized as follows:</p>
+<div class="table-wrapper"><table><thead><tr><th>Linux x86 64-bit</th><th>Mac OS (M1 / M2)</th><th>Mac OS (x86)</th><th>Windows</th></tr></thead><tbody>
+<tr><td>✓ Main platform</td><td>✓ Working</td><td>✓ Working</td><td>Untested</td></tr>
+</tbody></table>
+</div>
+<p>The main prerequisites to install the Linera toolchain are Rust, Wasm, and
+Protoc. They can be installed as follows on Linux:</p>
+<ul>
+<li>
+<p>Rust and Wasm</p>
+<ul>
+<li><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li>
+<li><code>rustup target add wasm32-unknown-unknown</code></li>
+</ul>
+</li>
+<li>
+<p>Protoc</p>
+<ul>
+<li><code>curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v21.11/protoc-21.11-linux-x86_64.zip</code></li>
+<li><code>unzip protoc-21.11-linux-x86_64.zip -d $HOME/.local</code></li>
+<li>If <code>~/.local</code> is not in your path, add it:
+<code>export PATH="$PATH:$HOME/.local/bin"</code></li>
+</ul>
+</li>
+<li>
+<p>On certain Linux distributions, you may have to install development packages
+such as <code>g++</code>, <code>libclang-dev</code> and <code>libssl-dev</code>.</p>
+</li>
+</ul>
+<p>For MacOS support see the installation section on
+<a href="https://github.com/linera-io/linera-protocol/blob/main/INSTALL.md">GitHub</a>.</p>
+<p>This manual was tested with the following Rust toolchain:</p>
+<pre><code class="language-text">[toolchain]
+channel = "1.85.0"
+components = [ "clippy", "rustfmt", "rust-src" ]
+targets = [ "wasm32-unknown-unknown" ]
+profile = "minimal"
+</code></pre>
+<h3 id="local-kubernetes-requirements"><a class="header" href="#local-kubernetes-requirements">Local Kubernetes Requirements</a></h3>
+<p>To run <code>kind</code> locally, you also need the following dependencies:</p>
+<ol>
+<li><a href="https://kind.sigs.k8s.io/docs/user/quick-start/#installation"><code>kind</code></a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/"><code>kubectl</code></a></li>
+<li><a href="https://docs.docker.com/get-docker/"><code>docker</code></a></li>
+<li><a href="https://helm.sh/docs/intro/install/"><code>helm</code></a></li>
+<li><a href="https://github.com/databus23/helm-diff"><code>helm-diff</code></a></li>
+<li><a href="https://github.com/helmfile/helmfile?tab=readme-ov-file#installation"><code>helmfile</code></a></li>
+</ol>
+<h3 id="installing-the-linera-toolchain-1"><a class="header" href="#installing-the-linera-toolchain-1">Installing the Linera Toolchain</a></h3>
+<p>To install the <code>Linera</code> toolchain, download the Linera source from
+<a href="https://github.com/linera-io/linera-protocol">GitHub</a>:</p>
+<pre><code class="language-bash">git clone https://github.com/linera-io/linera-protocol.git
+cd linera-protocol
+git checkout -t origin/testnet_babbage  # Current release branch
+</code></pre>
+<p>and to install the Linera toolchain:</p>
+<pre><code class="language-bash">cargo install --locked --path linera-service --features kubernetes
+</code></pre>
+<h2 id="running-with-kind"><a class="header" href="#running-with-kind">Running with <code>kind</code></a></h2>
+<p>To run a local devnet with <code>kind</code>, navigate to the root of the <code>linera-protocol</code>
+repository and run:</p>
+<pre><code class="language-bash">linera net up --kubernetes
+</code></pre>
+<p>This will take some time as Docker images are built from the Linera source. When
+the cluster is ready, some text is written to the process output containing the
+exports required to configure your wallet for the devnet - something like:</p>
+<pre><code class="language-bash">export LINERA_WALLET="/tmp/.tmpIOelqk/wallet_0.json"
+export LINERA_STORAGE="rocksdb:/tmp/.tmpIOelqk/client_0.db"
+</code></pre>
+<p>Exporting these variables in a new terminal will enable you to interact with the
+devnet:</p>
+<pre><code class="language-bash">$ linera sync-balance
+2024-05-21T22:30:12.061199Z  INFO linera: Synchronizing chain information and querying the local balance
+2024-05-21T22:30:12.061218Z  WARN linera: This command is deprecated. Use `linera sync &amp;&amp; linera query-balance` instead.
+2024-05-21T22:30:12.065787Z  INFO linera::client_context: Saved user chain states
+2024-05-21T22:30:12.065792Z  INFO linera: Operation confirmed after 4 ms
+1000000.
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="testnets"><a class="header" href="#testnets">Testnets</a></h1>
+<p>This section discusses how to deploy a validator node and join an existing
+Testnet.</p>
+<p>In a Testnet, the validator nodes are run by different operators. Testnets will
+gain in stability and decentralization over time in preparation of the mainnet
+launch. Testnets do not handle real assets.</p>
+<blockquote>
+<p>In the initial Testnets of Linera, the set of validator nodes will be managed
+by the Linera Core team.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="requirements-1"><a class="header" href="#requirements-1">Requirements</a></h1>
+<p>This section covers requirements for setting up a Linera Validator and joining a
+Testnet. The validator deployment has been comprehensively tested under
+<strong>Linux</strong>. There is no official support for MacOS or Windows yet.</p>
+<h2 id="installing-the-linera-toolchain-2"><a class="header" href="#installing-the-linera-toolchain-2">Installing the Linera Toolchain</a></h2>
+<blockquote>
+<p>When installing the Linera Toolchain, you <strong>must</strong> check out the
+<code>testnet_babbage</code> branch.</p>
+</blockquote>
+<p>To install the Linera Toolchain refer to the
+<a href="operators/testnets/../../developers/getting_started/installation.html#installing-from-github">installation section</a>.</p>
+<p>You want to install the toolchain from GitHub, as you'll be using the repository
+to run the Docker Compose validator service.</p>
+<h2 id="docker-compose-requirements-1"><a class="header" href="#docker-compose-requirements-1">Docker Compose Requirements</a></h2>
+<p>Linera validators run under Docker compose.</p>
+<p>To install Docker Compose see the
+<a href="https://docs.docker.com/compose/install/">installing Docker Compose</a> section in
+the Docker docs.</p>
+<h2 id="key-management"><a class="header" href="#key-management">Key Management</a></h2>
+<p>Currently keys in Linera are stored in a JSON file in your local filesystem. For
+convenience, they are currently plaintext. The key is usually called
+<code>server.json</code> and is found in the <code>docker/</code> directory in the core protocol
+repository.</p>
+<p>Make sure to back up your keys once they are generated because if they are lost,
+they are currently unrecoverable.</p>
+<h2 id="infrastructure-requirements"><a class="header" href="#infrastructure-requirements">Infrastructure Requirements</a></h2>
+<p>Validators run via Docker Compose do not come with a pre-packaged load balancer
+to perform TLS termination (unlike validators running on Kubernetes).</p>
+<p>The load balancer configuration <strong>must</strong> have the following properties:</p>
+<ol>
+<li>Support HTTP/2 connections.</li>
+<li>Support gRPC connections.</li>
+<li>Support long-lived HTTP/2 connections.</li>
+<li>Support a maximum body size of up to 20 MB.</li>
+<li>Provide TLS termination with a certificate signed by a known CA.</li>
+</ol>
+<p>Finally, the load balancer that performs TLS termination must redirect traffic
+from <code>443</code> to <code>19100</code> (the port exposed by the proxy).</p>
+<h3 id="using-nginx"><a class="header" href="#using-nginx">Using Nginx</a></h3>
+<p>Minimum supported version: 1.18.0.</p>
+<p>Below is an example Nginx configuration which upholds the infrastructure
+requirements found in <code>/etc/nginx/sites-available/default</code>:</p>
+<pre><code class="language-ignore">server {
+        listen 80 http2;
+
+        location / {
+                grpc_pass grpc://127.0.0.1:19100;
+        }
+}
+
+server {
+    listen 443 ssl http2;
+    server_name &lt;hostname&gt;; # e.g. my-subdomain.my-domain.net
+
+    # SSL certificates
+    ssl_certificate &lt;ssl-cert-path&gt;; # e.g. /etc/letsencrypt/live/my-subdomain.my-domain.net/fullchain.pem
+    ssl_certificate_key &lt;ssl-key-path&gt;; # e.g. /etc/letsencrypt/live/my-subdomain.my-domain.net/privkey.pem;
+
+    # Proxy traffic to the service running on port 19100.
+    location / {
+        grpc_pass grpc://127.0.0.1:19100;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    keepalive_timeout 10m 60s;
+    grpc_read_timeout 10m;
+    grpc_send_timeout 10m;
+
+    client_header_timeout 10m;
+    client_body_timeout 10m;
+}
+</code></pre>
+<h3 id="using-caddy"><a class="header" href="#using-caddy">Using Caddy</a></h3>
+<p>Minimum supported version: v2.4.3</p>
+<p>Below is an example Caddy configuration which upholds the infrastructure
+requirements found in <code>/etc/caddy/Caddyfile</code>:</p>
+<pre><code class="language-ignore">example.com {
+  reverse_proxy localhost:19100 {
+    transport http {
+      versions h2c
+      read_timeout 10m
+      write_timeout 10m
+    }
+  }
+}
+</code></pre>
+<h3 id="scylladb-configuration"><a class="header" href="#scylladb-configuration">ScyllaDB Configuration</a></h3>
+<p>ScyllaDB is an open-source distributed NoSQL database built for high-performance
+and low-latency. Linera validators use ScyllaDB as their persistent storage.</p>
+<p>ScyllaDB may require kernel parameters to be modified in order to work.
+Specifically the number of events allowed in asynchronous I/O contexts.</p>
+<p>To set this run:</p>
+<pre><code class="language-bash">echo 1048576 &gt; /proc/sys/fs/aio-max-nr
+</code></pre>
+<p>Once you're statisfied with the ScyllaDb configuration, consider make it
+persistent across OS reboots by editing <code>/etc/sysctl.conf</code>, setting
+<code>fs.aio-max-nr = 1048576</code>, then running:</p>
+<pre><code class="language-bash">sudo sysctl -p /etc/sysctl.conf
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="one-click-deploy"><a class="header" href="#one-click-deploy">One-Click Deploy</a></h2>
+<p>After downloading the <code>linera-protocol</code> repository and checking out the testnet
+branch <code>testnet_babbage</code>, you can run
+<code>scripts/deploy-validator.sh &lt;hostname&gt;</code> to deploy a Linera validator.</p>
+<p>For example:</p>
+<pre><code class="language-bash">$ git fetch origin
+$ git checkout -t origin/testnet_babbage
+$ scripts/deploy-validator.sh linera.mydomain.com --remote-image
+</code></pre>
+<p>The deployment automatically listens for new image updates and will pull them
+automatically.</p>
+<blockquote>
+<p>Note: Optionally you can build the image from source by not specifying
+<code>--remote-image</code>.</p>
+</blockquote>
+<p>The public key and account key will be printed after the command has finished
+executing, for example:</p>
+<pre><code class="language-bash">$ scripts/deploy-validator.sh linera.mydomain.com --remote-image
+...
+Public Key: 02a580bbda90f0ab10f015422d450b3e873166703af05abd77d8880852a3504e4d,009b2ecc5d39645e81ff01cfe4ceeca5ec207d822762f43b35ef77b2367666a7f8
+</code></pre>
+<p>The public key and account key, in this case beginning with <code>02a</code> and <code>009</code>
+respectively, must be communicated to the Linera Protocol core team along with
+the chosen host name for onboarding in the next epoch.</p>
+<p>For a more bespoke deployment, refer to the manual installation instructions
+below.</p>
+<blockquote>
+<p>Note: If you have previously deployed a validator you may need to remove old
+docker volumes (<code>docker_linera-scylla-data</code> and <code>docker_linera-shared</code>).</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="manual-installation"><a class="header" href="#manual-installation">Manual Installation</a></h1>
+<p>If you don't want to use the provided deploy script, you can instead choose to
+manually roll out your validator deployment.</p>
+<h2 id="setting-up-a-linera-validator"><a class="header" href="#setting-up-a-linera-validator">Setting up a Linera Validator</a></h2>
+<p>For the next section, we'll be working out of the <code>docker</code> subdirectory in the
+<code>linera-protocol</code> repository.</p>
+<h3 id="creating-your-validator-configuration"><a class="header" href="#creating-your-validator-configuration">Creating your Validator Configuration</a></h3>
+<p>Validators are configured using a TOML file. You can use the following template
+to set up your own validator configuration:</p>
+<pre><code class="language-toml">server_config_path = "server.json"
+host = "&lt;your-host&gt;" # e.g. my-subdomain.my-domain.net
+port = 19100
+metrics_host = "proxy"
+metrics_port = 21100
+internal_host = "proxy"
+internal_port = 20100
+[external_protocol]
+Grpc = "ClearText" # Depending on your load balancer you may need "Tls" here.
+[internal_protocol]
+Grpc = "ClearText"
+
+# Adjust depending on the number of shards you have
+[[shards]]
+host = "docker-shard-1"
+port = 19100
+metrics_port = 21100
+
+[[shards]]
+host = "docker-shard-2"
+port = 19100
+metrics_port = 21100
+
+[[shards]]
+host = "docker-shard-3"
+port = 19100
+metrics_port = 21100
+
+[[shards]]
+host = "docker-shard-4"
+port = 19100
+metrics_port = 21100
+
+</code></pre>
+<h3 id="genesis-configuration"><a class="header" href="#genesis-configuration">Genesis Configuration</a></h3>
+<p>The genesis configuration describes the committee of validators and chains at
+the point of network creation. It is required for validators to function.</p>
+<p>Initially, the genesis configuration for each Testnet will be found in a public
+bucket managed by the Linera Protocol core team.</p>
+<p>An example can be found here:</p>
+<pre><code class="language-bash">wget "https://storage.googleapis.com/linera-io-dev-public/testnet-babbage/genesis.json"
+</code></pre>
+<h3 id="creating-your-keys"><a class="header" href="#creating-your-keys">Creating Your Keys</a></h3>
+<p>Now that the
+<a href="operators/testnets/manual-installation.html#creating-your-validator-configuration">validator configuration</a>
+has been created and the
+<a href="operators/testnets/manual-installation.html#genesis-configuration">genesis configuration</a> is
+available, the validator private keys can be generated.</p>
+<p>To generate the private keys, the <code>linera-server</code> binary is used:</p>
+<pre><code class="language-bash">linera-server generate --validators /path/to/validator/configuration.toml
+</code></pre>
+<p>This will generate a file called <code>server.json</code> with the information required for
+a validator to operate, including a cryptographic keypair.</p>
+<p>The public key will be printed after the command has finished executing, for
+example:</p>
+<pre><code class="language-bash">$ linera-server generate --validators /path/to/validator/configuration.toml
+2024-07-01T16:51:32.881519Z  INFO linera_server: Wrote server config server.json
+02a580bbda90f0ab10f015422d450b3e873166703af05abd77d8880852a3504e4d,009b2ecc5d39645e81ff01cfe4ceeca5ec207d822762f43b35ef77b2367666a7f8
+</code></pre>
+<p>The public key and account key, in this case beginning with <code>02a</code> and <code>009</code>
+respectively, must be communicated to the Linera Protocol core team along with
+the chosen host name for onboarding in the next epoch.</p>
+<blockquote>
+<p>Note: Before being included in the next epoch, validator nodes will receive no
+traffic from existing users.</p>
+</blockquote>
+<h3 id="building-the-linera-docker-image"><a class="header" href="#building-the-linera-docker-image">Building the Linera Docker image</a></h3>
+<p>To build the Linera Docker image, run the following command from the root of the
+<code>linera-protocol</code> repository:</p>
+<pre><code class="language-bash">docker build --build-arg git_commit="$(git rev-parse --short HEAD)" -f docker/Dockerfile . -t linera
+</code></pre>
+<p>This can take several minutes.</p>
+<h3 id="running-a-validator-node"><a class="header" href="#running-a-validator-node">Running a Validator Node</a></h3>
+<p>Now that the genesis configuration is available at <code>docker/genesis.json</code> and the
+server configuration is available at <code>docker/server.json</code>, the validator can be
+started by running from inside the <code>docker</code> directory:</p>
+<pre><code class="language-bash">cd docker &amp;&amp; docker compose up -d
+</code></pre>
+<p>This will run the Docker Compose deployment in a detached mode. It can take a
+few minutes for the ScyllaDB image to be downloaded and started.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="verifying-installation"><a class="header" href="#verifying-installation">Verifying installation</a></h1>
+<p>To verify the installation, you can use the <code>linera query-validator</code> command.
+For example:</p>
+<pre><code class="language-bash">$ linera wallet init --with-new-chain --faucet https://faucet.testnet-babbage.linera.net
+$ linera query-validator grpcs:my-domain.com:443
+
+RPC API hash: kd/Ru73B4ZZjXYkFqqSzoWzqpWi+NX+8IJLXOODjSko
+GraphQL API hash: eZqzuBlLT0bcoQUjOCPf2j22NfZUWG95id4pdlUmhgs
+WIT API hash: 4/gsw8G+47OUoEWK6hJRGt9R69RanU/OidmX7OKhqfk
+Source code: https://github.com/linera-io/linera-protocol/tree/
+
+0cd20d06af5262540535347d4cc6e5952a921d1a6a7f6dd0982159c9311cfb3e
+</code></pre>
+<p>The last line is the hash of the network's genesis configuration. If this
+command exits successfully your validator is now operational and ready to be
+on-boarded.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="monitoring-and-logging"><a class="header" href="#monitoring-and-logging">Monitoring and Logging</a></h1>
+<p>This section covers how to monitor the behaviour and performance of your
+validator once deployed.</p>
+<h2 id="monitoring"><a class="header" href="#monitoring">Monitoring</a></h2>
+<p>The validator ships with an instance of <a href="https://prometheus.io/">Prometheus</a> for
+metrics and <a href="https://grafana.com/">Grafana</a> for observability.</p>
+<p>Grafana ships with a default dashboard called the "General" dashboard which
+displays the most common metrics for validator operation, from latency to error
+rates.</p>
+<p><img src="operators/testnets/dashboard-example.png" alt="img.png" /></p>
+<p>The relevant ports can be found in the
+<a href="https://github.com/linera-io/linera-protocol/blob/main/docker/docker-compose.yml">Docker Compose manifest</a>.</p>
+<h2 id="logging"><a class="header" href="#logging">Logging</a></h2>
+<p>Logging is currently handled implicitly by Docker as it absorbs the process
+stdout from the proxy and shard processes.</p>
+<p>To view the logs for a given container run:</p>
+<pre><code class="language-bash">docker compose logs &lt;service-name&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="debugging"><a class="header" href="#debugging">Debugging</a></h1>
+<p>This section covers potential issues with validator deployments and how to
+resolve them.</p>
+<h2 id="common-issues"><a class="header" href="#common-issues">Common Issues</a></h2>
+<p>Below we outline a few of the common occurrences with Linera validator
+deployments and how to resolve them.</p>
+<h3 id="shard-init-process-is-stuck"><a class="header" href="#shard-init-process-is-stuck"><code>shard-init</code> process is stuck</a></h3>
+<p>The <code>shard-init</code> process is responsible for initializing the database and
+shards.</p>
+<p>The database inside a validator, ScyllaDB, can take some time to initialize as
+it performs performance checks and tunes itself against the underlying
+hardware - this should take about 10 minutes.</p>
+<p>If the <code>shard-init</code> process is <em>still</em> stuck after that, the issue is usually:</p>
+<ol>
+<li>Not enough events allowed in async I/O contexts. A resolution is outlined
+<a href="operators/testnets/requirements.html#scylladb-configuration">here</a>.</li>
+<li>Stale volumes from a previous deployment. Docker doesn't clean up volumes
+automatically when deleting an old deployment via <code>docker compose down</code> or
+even when running <code>docker system prune -a</code>. The old stale volumes need to be
+removed explicitly via <code>docker volume rm ...</code>.</li>
+</ol>
+<p>If neither of these fixes resolves the issue, a closer inspection of the logs is
+required.</p>
+<h3 id="pull-access-denied"><a class="header" href="#pull-access-denied"><code>pull access denied</code></a></h3>
+<p>When deploying a validator you can either build the Docker image yourself or use
+a pre-built remote image provided by the Linera team.</p>
+<p>The Docker Compose manifest looks for the <code>LINERA_IMAGE</code> environment variable
+which is usually set by the default script. If it is not found, it defaults to
+the value <code>linera</code>, which is assumed to exist as an image locally.</p>
+<p>To resolve this issue either explicitly specify the <code>LINERA_IMAGE</code> or ensure
+that the
+<a href="operators/testnets/manual-installation.html#building-the-linera-docker-image">image is built locally</a>.</p>
+<h3 id="access-denied-to-genesisjson"><a class="header" href="#access-denied-to-genesisjson"><code>Access denied to genesis.json</code></a></h3>
+<p>This occurs when the genesis configuration URL is malformed via string
+formatting. The deploy script uses the name of the current branch to create the
+URL so make sure you have checked out <code>testnet_babbage</code>.</p>
+<h2 id="support"><a class="header" href="#support">Support</a></h2>
+<p>Support and communication with the core team is done via the <code>#validator</code>
+private channel in the <a href="https://discord.com/invite/linera">Linera Discord</a>.</p>
+<p>If there are any outstanding issues which could not be resolved by consulting
+this document, you can reach out there.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="glossary"><a class="header" href="#glossary">Glossary</a></h1>
+<ul>
+<li>
+<p><strong>Address</strong>: A unique public alphanumeric identifier used to designate the
+identity of an entity on the Linera network.</p>
+</li>
+<li>
+<p><strong>Admin Chain</strong>: The Linera Network has one designated <em>admin chain</em> where
+validators can join or leave and where new epochs are defined.</p>
+</li>
+<li>
+<p><strong>Application</strong>: Similar to a smart-contract on Ethereum, an application is
+code deployed on the Linera network which is executed by all validators. An
+application has a metered <em>contract</em> which executes 'business logic' and
+modifies state and an unmetered 'service' which is a read-only view into an
+application's state.</p>
+</li>
+<li>
+<p><strong>Byzantine Fault-Tolerant (BFT)</strong>: A system which can operate correctly and
+achieve consensus even if components of the system fail or act maliciously.</p>
+</li>
+<li>
+<p><strong>Block Height</strong>: The number of blocks preceding a given block on a specific
+microchain.</p>
+</li>
+<li>
+<p><strong>Block Proposal</strong>: A candidate block proposed by a chain owner which may be
+selected at the next block height.</p>
+</li>
+<li>
+<p><strong>Bytecode</strong>: A collection of bytes corresponding to a program that can be run
+by the Wasm virtual machine.</p>
+</li>
+<li>
+<p><strong>Client</strong>: The <code>linera</code> program, which is a local node and wallet operated by
+users to make requests to the network. In Linera, clients drive the network by
+proposing new blocks and validators are mostly reactive.</p>
+</li>
+<li>
+<p><strong>Certificate</strong>: A value with signatures from a quorum of validators. Values
+can be confirmed blocks, meaning that the block has been added to the chain
+and is final. There are other values that are used for reaching consensus,
+before certifying a confirmed block.</p>
+</li>
+<li>
+<p><strong>Committee</strong>: The set of all validators for a particular <em>epoch</em>, together
+with their voting weights.</p>
+</li>
+<li>
+<p><strong>Chain Owner</strong>: The owner of a <em>user chain</em> or <em>multi-user chain</em>. This is
+represented as the alphanumeric identifier derived from the hash of the
+owner's public key.</p>
+</li>
+<li>
+<p><strong>Channel</strong>: A broadcast mechanism enabling publish-subscribe behavior across
+chains.</p>
+</li>
+<li>
+<p><strong>Contract</strong>: The metered part of an application which executes business logic
+and can modify the application's state.</p>
+</li>
+<li>
+<p><strong>Cross-Application Call</strong>: A call from one application to another on the
+<em>same chain</em>.</p>
+</li>
+<li>
+<p><strong>Cross-Chain Message</strong>: A message containing a data payload which is sent
+from one chain to another. Cross-Chain messages are the asynchronous
+communication primitive which enable communication on the same application
+running on different chains.</p>
+</li>
+<li>
+<p><strong>Devnet</strong>: An experimental deployment of the Linera protocol meant for
+testing and development. In a Devnet, the validator nodes are often run by the
+same operator for simplicity. Devnets may be shut down and restarted from a
+genesis configuration any time. Devnets do not handle real assets.</p>
+</li>
+<li>
+<p><strong>Epoch</strong>: A period of time when a particular set of validators with
+particular voting weights can certify new blocks. Since each chain has to
+transition explicitly from one epoch to the next, epochs can overlap.</p>
+</li>
+<li>
+<p><strong>Genesis Configuration</strong>: The configuration determining the state of a newly
+created network; the voting weights of the initial set of validators, the
+initial fee structure, and initial chains that the network starts with.</p>
+</li>
+<li>
+<p><strong>Inbox</strong>: A commutative data structure storing incoming messages for a given
+chain.</p>
+</li>
+<li>
+<p><strong>Mainnet</strong>: A deployment meant to be used in production, with real assets.</p>
+</li>
+<li>
+<p><strong>Message</strong>: See 'Cross-Chain Message'.</p>
+</li>
+<li>
+<p><strong>Microchain</strong>: A lightweight chain of blocks holding a subset of the
+network's state running on every validator. This is used interchangeably with
+'chain'. <em>All</em> Linera chains are microchains.</p>
+</li>
+<li>
+<p><strong>Network</strong>: The totality of all protocol participants. A network is the
+combination of committee, clients and auditors.</p>
+</li>
+<li>
+<p><strong>Operation</strong>: Operations are either transactions directly added to a block by
+the creator (and signer) of the block, or calls to an application from
+another. Users typically use operations to start interacting with an
+application on their own chain.</p>
+</li>
+<li>
+<p><strong>Multi-user Chain</strong>: A microchain which is owned by more than one user. Users
+take turns proposing blocks and the likelihood of selection is proportional to
+their <em>weight</em>.</p>
+</li>
+<li>
+<p><strong>Project</strong>: The collection of files and dependencies which are built into the
+bytecode which is instantiated as an application on the Linera Network.</p>
+</li>
+<li>
+<p><strong>Public Chain</strong>: A microchain with full BFT consensus with a strict set of
+permissions relied on for the operation of the network.</p>
+</li>
+<li>
+<p><strong>Quorum</strong>: A set of validators representing &gt; ⅔ of the total stake. A quorum
+is required to create a certificate.</p>
+</li>
+<li>
+<p><strong>Single-Owner Chain</strong>: See 'User Chain'.</p>
+</li>
+<li>
+<p><strong>Service</strong>: An unmetered read-only view into an application's state.</p>
+</li>
+<li>
+<p><strong>Shard</strong>: A logical subset of all microchains on a given validator. This
+corresponds directly to a physical <em>worker</em>.</p>
+</li>
+<li>
+<p><strong>Stake</strong>: An amount of tokens pledged by a validator or auditor, as a
+collateral to guarantee their honest and correct participation in the network.</p>
+</li>
+<li>
+<p><strong>Testnet</strong>: A deployment of the Linera protocol meant for testing and
+development. In a Testnet, the validator nodes are operated by multiple
+operators. Testnets will gain in stability and decentralization over time in
+preparation of the mainnet launch. Testnets do not handle real assets.</p>
+</li>
+<li>
+<p><strong>User Chain</strong>: Used interchangeably with <em>Single-Owner Chain</em>. User chains
+are chains which are owned by a single user on the network. Only the chain
+owner can propose blocks, and therefore only the chain owner can forcibly
+advance the state of a user chain.</p>
+</li>
+<li>
+<p><strong>Validator</strong>: Validators run the servers that allow users to download and
+create blocks. They validate, execute and cryptographically certify the blocks
+of all the chains.</p>
+</li>
+<li>
+<p><strong>View</strong>: Views are like an Object-Relational Mapping (ORM) for mapping
+complex types onto key-value stores. Views group complex state changes into a
+set of elementary operations and commit them atomically. They are full or
+partial in-memory representations of complex types saved on disk in a
+key-value store</p>
+</li>
+<li>
+<p><strong>Wallet</strong>: A file containing a user's public and private keys along with
+configuration and information regarding the chains they own.</p>
+</li>
+<li>
+<p><strong>WebAssembly (Wasm)</strong>: A binary compilation target and instruction format
+that runs on a stack-based VM. Linera applications are compiled to Wasm and
+run on Wasm VMs inside validators and clients.</p>
+</li>
+<li>
+<p><strong>Web3</strong>: A natural evolution of the internet focusing on decentralization by
+leveraging blockchains and smart contracts.</p>
+</li>
+<li>
+<p><strong>Worker</strong>: A process which runs a subset of all microchains on a given
+validator. This corresponds directly to a logical <em>shard</em>.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="videos"><a class="header" href="#videos">Videos</a></h1>
+<p>We're constantly improving the SDK and creating new material. Below are some of
+our recent tutorials and presentations videos:</p>
+<h3 id="rust-on-linera-spring-2024-hackathon-kick-off"><a class="header" href="#rust-on-linera-spring-2024-hackathon-kick-off"><a href="https://www.youtube.com/watch?v=gVOHsS7d5qI">Rust on Linera: Spring 2024 Hackathon Kick-Off</a></a></h3>
+<p>Exploring the Linera protocol with our founder, Mathieu Baudet, followed by an
+overview of the Rust on Linera hackathon specifics and resources.</p>
+<h3 id="rust-on-linera-spring-2024-hackathon-coding-workshop-1"><a class="header" href="#rust-on-linera-spring-2024-hackathon-coding-workshop-1"><a href="https://www.youtube.com/watch?v=Px_9AapmZPY">Rust on Linera: Spring 2024 Hackathon Coding Workshop #1</a></a></h3>
+<p>Building and deploying your first Linera application using the Linera devnet
+with one of our engineers, Christos Hadjiaslanis.</p>
+<h3 id="rust-on-linera-spring-2024-hackathon-coding-workshop-2"><a class="header" href="#rust-on-linera-spring-2024-hackathon-coding-workshop-2"><a href="https://www.youtube.com/watch?v=Y-wunX2SwSs">Rust on Linera: Spring 2024 Hackathon Coding Workshop #2</a></a></h3>
+<p>Making your Linera application robust by adding testing, logging, and more.</p>
+<h3 id="rust-on-linera-spring-2024-hackathon-coding-workshop-3"><a class="header" href="#rust-on-linera-spring-2024-hackathon-coding-workshop-3"><a href="https://www.youtube.com/watch?v=UkAYdolV9vw">Rust on Linera: Spring 2024 Hackathon Coding Workshop #3</a></a></h3>
+<p>Building a meta-fungible token application on Linera.</p>
+<h3 id="secure-reactive-web3-for-everyone"><a class="header" href="#secure-reactive-web3-for-everyone"><a href="https://www.youtube.com/watch?v=GViOuQzs_fo">Secure Reactive Web3 for Everyone</a></a></h3>
+<p>Discussing how user wallets track on-chain data using WebAssembly and
+microchains with Mathieu Baudet and Andreas Fackler from Eth Prague 2024.</p>
+<h3 id="linera-x-movement-labs-integrated-day-party-panel-discussion"><a class="header" href="#linera-x-movement-labs-integrated-day-party-panel-discussion"><a href="https://www.youtube.com/watch?v=BSWEZU70WAE">Linera x Movement Labs Integrated Day Party Panel Discussion</a></a></h3>
+<p>Discussing the importance of blockchain and Web3 technologies, challenges and
+opportunities in the industry, and the significance of security and user
+empowerment in the new web ecosystem from Consensus 2024.</p>
+<p>For the latest videos and highlights, check out our
+<a href="https://www.youtube.com/@linera_io">YouTube channel</a> and
+<a href="https://x.com/linera_io">X (formerly Twitter) Media</a>.</p>
+<p><em>Happy viewing!</em></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-b074573a.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-ba43d0c1.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="custom-6e1704cf.js"></script>
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-4a2716e5.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
